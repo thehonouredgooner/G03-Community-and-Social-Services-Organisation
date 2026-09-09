@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Apply | [Company Name]</title>
+        <title>Apply | Community Connect</title>
         <meta charset="UTF-8">
-        <meta name="description" content="Apply for a position at [Company Name]. Submit your job application online.">
+        <meta name="description" content="Apply for a position at Community Connect. Submit your job application online.">
         <meta name="keywords" content="job application, apply, careers, recruitment">
         <meta name="author" content="Kevin Lee">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,25 +27,27 @@
         </style>
     </head>
 
-    <body class="page-apply">
+    <body class="page-apply"><a class="skip-link" href="#main-content">Skip to main content</a>
 
         <!-- Shared header and nav - the same on all four pages. -->
-        <header>
-            <h1>[Company Name]</h1>
-            <p>[Company slogan]</p>
+        <header class="site-header">
+            <a class="brand" href="index.html">
+                <img src="images/logo.png" alt="Community Connect logo" height="56">
+                <span class="brand-name">Community Connect</span>
+            </a>
 
-            <nav>
+            <nav class="site-nav" aria-label="Main navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="jobs.html">Jobs</a></li>
                     <li><a href="apply.html" aria-current="page">Apply</a></li>
-                    <li><a href="about.html">About</a></li>
+                    <li><a href="about.html">About us</a></li>
                 </ul>
             </nav>
         </header>
 
-        <main>
-            <h2>Job Application Form</h2>
+        <main id="main-content">
+            <h1>Job Application Form</h1>
             <p>
                 Fill in the form below to apply for one of our advertised roles.
                 Fields marked with <span class="req">*</span> are required.
@@ -74,7 +76,7 @@
                         <input type="text" id="Firstname" name="Firstname" 
                             required 
                             pattern="[A-Za-z]{1,20}" 
-                            maxlength="20" 
+                            maxlengthG="20" 
                             autocomplete="given-name"
                             title="Letters only, up to 20 characters">
                     </div>
@@ -255,13 +257,18 @@
 
 
         <!-- Shared footer - the three project links are required on the site. -->
-        <footer>
-            <ul>
-                <li><a href="https://student-team-jgdgr2kt.atlassian.net/jira/software/projects/G03/boards/35">Jira board</a></li>
+        <footer class="site-footer">
+            <h2 class="visually-hidden">Site information</h2>
+
+            <ul class="footer-links">
+                <li><a href="https://student-team-jgdgr2kt.atlassian.net/jira/software/projects/G03/boards/35">Jira project board</a></li>
                 <li><a href="https://github.com/thehonouredgooner/G03-Community-and-Social-Services-Organisation">GitHub repository</a></li>
-                <li><a href="mailto:info@companyname.com">info@companyname.com</a></li>
+                <li><a href="mailto:info@communityconnect.org.au">info@communityconnect.org.au</a></li>
             </ul>
-            <p>&copy; 2026 [Company Name]. Group [G0X], COS10026.</p>
+
+            <p class="copyright">
+                &copy; 2026 Community Connect. All rights reserved.
+            </p>
         </footer>
     </body>
     </html>
