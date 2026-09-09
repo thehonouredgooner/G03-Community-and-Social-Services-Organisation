@@ -299,5 +299,119 @@ textarea:focus {
 
 
 /* ----------------------------------------------------------
-   7. ABOUT PAGE - about.html                (owner: TBA)
+   7. ABOUT PAGE - about.html                (owner: Hoang Nam Nguyen)
    ---------------------------------------------------------- */
+   .page-about section {
+    margin-bottom: 3rem;
+}
+ 
+/* --- Nested list: group details --- */
+ 
+.page-about .group-details {
+    line-height: 1.7;
+}
+ 
+/* Child combinator: only the top level items, not the nested ones */
+.page-about .group-details > li {
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+}
+ 
+.page-about .group-details ul li {
+    font-weight: 400;
+}
+ 
+/* --- Student ID styling (required) --- */
+ 
+.page-about .student-id {
+    font-family: "Courier New", monospace;
+    font-size: 0.9em;
+    letter-spacing: 0.05em;
+    color: #35604A;
+    background-color: #EDF2EF;
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+}
+ 
+/* --- Definition list: member contributions --- */
+ 
+.page-about .contributions dt {
+    font-weight: 600;
+    color: #1F3A2E;
+    margin-top: 1.25rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid #C6D6CE;
+}
+ 
+.page-about .contributions dd {
+    margin-left: 0;
+    padding: 0.6rem 0 0 1rem;
+    border-left: 3px solid #35604A;
+    line-height: 1.6;
+}
+ 
+/* --- Member quote cards --- */
+ 
+.page-about .quote-card {
+    padding: 1rem 1.25rem;
+    background-color: #F7FAF8;
+    border-left: 4px solid #B8860B;
+}
+ 
+.page-about .quote-card h3 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #55625B;
+}
+ 
+/* --- Group photo figure (required styling) --- */
+ 
+.page-about .group-figure {
+    margin: 0;
+    max-width: 42rem;
+    padding: 0.75rem;
+    background-color: #FFFFFF;
+    border: 1px solid #C6D6CE;
+}
+ 
+.page-about .group-figure img {
+    display: block;
+}
+ 
+.page-about .group-figure figcaption {
+    margin-top: 0.65rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #55625B;
+}
+ 
+/* --- Fun facts table (required styling) --- */
+ 
+.page-about .team-table tbody th {
+    background-color: #EDF2EF;
+    font-weight: 600;
+}
+ 
+/* HOVER EFFECT (required) - highlights the whole row */
+.page-about .team-table tbody tr:hover {
+    background-color: #E4EFE9;
+}
+ 
+.page-about .team-table tbody tr:hover th {
+    background-color: #D4E5DB;
+}
+ 
+@media screen and (max-width: 700px) {
+    .page-about .team-table {
+        font-size: 0.9rem;
+    }
+ 
+    .page-about .team-table th,
+    .page-about .team-table td {
+        padding: 0.5rem;
+    }
+ 
+    .page-about .contributions dd {
+        padding-left: 0.75rem;
+    }
+}
