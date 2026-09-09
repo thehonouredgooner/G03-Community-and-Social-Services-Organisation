@@ -1,17 +1,252 @@
 /* ----------------------------------------------------------
-   1. COLOURS AND BASE                       (owner: TBA)
-   ---------------------------------------------------------- */
+   1. COLOURS AND BASE                       (owner: Hoang Nam Nguyen)
+     ---------------------------------------------------------- */
+/* Colour palette used across the site (hexadecimal values)
+   #1F2A24  body text            #35604A  primary green
+   #1F3A2E  dark green           #B8860B  accent gold
+   #55625B  muted text           #C6D6CE  borders
+   #EDF2EF  light fill           #F7FAF8  panel background */
  
+* {
+    box-sizing: border-box;
+}
+ 
+body {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+    color: #1F2A24;
+    background-color: #FFFFFF;
+}
+ 
+h1, h2, h3 {
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    line-height: 1.25;
+    color: #1F3A2E;
+}
+ 
+h1 { font-size: 2rem;    margin-bottom: 0.75rem; }
+h2 { font-size: 1.45rem; margin-top: 2rem; }
+h3 { font-size: 1.1rem;  margin-top: 1.4rem; }
+ 
+p {
+    max-width: 66ch;
+}
+ 
+a {
+    color: #35604A;
+}
+ 
+a:hover,
+a:focus {
+    color: #1F3A2E;
+}
+ 
+img {
+    max-width: 100%;
+    height: auto;
+}
+ 
+main {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+}
+ 
+/* Shared table styling - used on the home page and the about page */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+ 
+th, td {
+    padding: 0.65rem 0.8rem;
+    border: 1px solid #C6D6CE;
+    text-align: left;
+    vertical-align: top;
+}
+ 
+thead th {
+    background-color: #35604A;
+    color: #FFFFFF;
+}
+ 
+caption {
+    text-align: left;
+    font-size: 0.95rem;
+    color: #55625B;
+    padding-bottom: 0.6rem;
+}
+ 
+/* Accessibility helpers */
+ 
+/* Content that only screen readers need to hear */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+ 
+/* Lets keyboard users jump past the nav straight to the content.
+   Sits off screen until it receives keyboard focus. */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    padding: 0.6rem 1rem;
+    background-color: #35604A;
+    color: #FFFFFF;
+    z-index: 100;
+}
+ 
+.skip-link:focus {
+    left: 0;
+}
+ 
+/* Visible focus outline on everything interactive */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 3px solid #B8860B;
+    outline-offset: 2px;
+}
+ 
+@media screen and (max-width: 700px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.25rem; }
+ 
+    main {
+        padding: 1.5rem 1rem 2.5rem;
+    }
+}
+/* ----------------------------------------------------------
+   2. NAVIGATION                             (owner: Hoang Nam Nguyen)
+   ---------------------------------------------------------- */
+ .site-header {
+    border-bottom: 3px solid #35604A;
+    background-color: #F7FAF8;
+}
+ 
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 1rem 1.25rem 0.75rem;
+    text-decoration: none;
+}
+ 
+/* Height only, so the logo keeps its own proportions */
+.brand img {
+    height: 56px;
+    width: auto;
+}
+ 
+.brand-name {
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1F3A2E;
+}
+ 
+.site-nav {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+}
+ 
+.site-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+ 
+.site-nav a {
+    display: block;
+    padding: 0.7rem 1rem;
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: #1F3A2E;
+    border-bottom: 3px solid transparent;
+}
+ 
+.site-nav a:hover,
+.site-nav a:focus {
+    background-color: #EDF2EF;
+    border-bottom-color: #C6D6CE;
+}
+ 
+/* Marks the page the visitor is currently on */
+.site-nav a[aria-current="page"] {
+    font-weight: 600;
+    border-bottom-color: #35604A;
+}
+ 
+/* Nav stacks vertically on a phone */
+@media screen and (max-width: 700px) {
+    .brand {
+        padding: 0.85rem 1rem 0.6rem;
+    }
+ 
+    .site-nav ul {
+        flex-direction: column;
+        gap: 0;
+    }
+ 
+    .site-nav a {
+        border-bottom: 1px solid #C6D6CE;
+    }
+}
  
 /* ----------------------------------------------------------
-   2. NAVIGATION                             (owner: TBA)
+   3. FOOTER                                 (owner: Hoang Nam Nguyen)
    ---------------------------------------------------------- */
+ .site-footer {
+    margin-top: 3rem;
+    padding: 2rem 1.25rem;
+    background-color: #1F3A2E;
+    color: #FFFFFF;
+}
  
+.site-footer a {
+    color: #FFFFFF;
+}
  
-/* ----------------------------------------------------------
-   3. FOOTER                                 (owner: TBA)
-   ---------------------------------------------------------- */
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    list-style: none;
+    max-width: 68rem;
+    margin: 0 auto 1rem;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    font-size: 0.95rem;
+}
  
+.copyright {
+    max-width: 68rem;
+    margin: 0 auto;
+    font-size: 0.85rem;
+    color: #D6E2DA;
+}
+ 
+@media screen and (max-width: 700px) {
+    .footer-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
  
 /* ----------------------------------------------------------
    4. HOME PAGE - index.html                 (owner: TBA)
