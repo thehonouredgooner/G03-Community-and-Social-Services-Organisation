@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Meet the student team who designed and built the Community Connect recruitment website.">
+  <title>About the Team | Community Connect</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .quote-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .quote-card blockquote {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .translation {
+      color: #55625B;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <img src="images/logo.png" alt="Community Connect logo" height="56">
+      <span class="brand-name">Community Connect</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="jobs.html">Jobs</a></li>
+        <li><a href="apply.html">Apply</a></li>
+        <li><a href="about.html" aria-current="page">About us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <h1>About the team</h1>
+
+    <section aria-labelledby="group-heading">
+      <h2 id="group-heading">Group details</h2>
+
+      <ul class="group-details">
+        <li>Group
+          <ul>
+            <li>Group code: G03</li>
+            <li>Group name: Group 3</li>
+            <li>Industry: Community and social services (not-for-profit)</li>
+          </ul>
+        </li>
+        <li>Tutorial class
+          <ul>
+            <li>Day and time: Thursday, 4:30 pm - 6:30pm</li>
+            <li>Tutor: Rahul Raghavan</li>
+            <li>Campus: Hawthorn</li>
+          </ul>
+        </li>
+        <li>Members
+          <ul>
+            <li>Vihaan Nambi <span class="student-id">106546607</span></li>
+            <li>Kevin Lee <span class="student-id">106523655</span></li>
+            <li>Hoang Nam Nguyen <span class="student-id">105548039</span></li>
+            <li>Lan Nguyen <span class="student-id">106504197</span></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="contrib-heading">
+      <h2 id="contrib-heading">Who built what</h2>
+
+      <dl class="contributions">
+        <dt>Vihaan Nambi <span class="student-id">106546607</span></dt>
+        <dd>
+          Built the home page, including the organisation branding, the description
+          of our services, the merged-cell table and the Acknowledgement of Country.
+          Wrote the event and community programs content, and was responsible for
+          the final submission.
+        </dd>
+
+        <dt>Kevin Lee <span class="student-id">106523655</span></dt>
+        <dd>
+          Built the application page, including all form controls, validation
+          patterns, labels and fieldsets, and the layout used to organise the form.
+          Set up the team Jira board.
+        </dd>
+
+        <dt>Hoang Nam Nguyen <span class="student-id">105548039</span></dt>
+        <dd>
+          Built this page and its styling, produced the organisation logo, and
+          maintained the shared external stylesheet, including the site-wide colour
+          scheme, the common header and footer rules, and the responsive layout used
+          across all four pages.
+        </dd>
+
+        <dt>Lan Nguyen <span class="student-id">106504197</span></dt>
+        <dd>
+          Built the jobs page, including the three position descriptions, the
+          supporting aside and its styling.
+        </dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="quotes-heading">
+      <h2 id="quotes-heading">In our own words</h2>
+
+      <p>Something each of us enjoys or feels strongly about.</p>
+
+      <div class="quote-grid">
+
+        <article class="quote-card">
+          <h3>Vihaan Nambi</h3>
+          <blockquote lang="es">
+            <p>No tengas miedo al fracaso. Este es el camino hacia el éxito.</p>
+          </blockquote>
+          <p class="translation" lang="en">Don't be afraid of failure. This is the way to succeed.</p>
+        </article>
+
+        <article class="quote-card">
+          <h3>Kevin Lee</h3>
+          <blockquote lang="ko">
+            <p>터널 끝에 빛이 있다</p>
+          </blockquote>
+          <p class="translation" lang="en">There is always light at the end of the tunnel.</p>
+        </article>
+
+        <article class="quote-card">
+          <h3>Hoang Nam Nguyen</h3>
+          <blockquote lang="vi">
+            <p>Có công mài sắt, có ngày nên kim</p>
+          </blockquote>
+          <p class="translation" lang="en">Practice makes perfect.</p>
+        </article>
+
+        <article class="quote-card">
+          <h3>Lan Nguyen</h3>
+          <blockquote lang="vi">
+            <p>Lá lành đùm lá rách</p>
+          </blockquote>
+          <p class="translation" lang="en">Whole leaves shelter the torn ones. Those who have more look after those who have less.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <section aria-labelledby="photo-heading">
+      <h2 id="photo-heading">Our team</h2>
+
+      <figure class="group-figure">
+        <img src="images/group-photo.jpg"
+             alt="picture of the four team members"
+             style="max-width: 100%;">
+        </figcaption>
+      </figure>
+    </section>
+
+    <section aria-labelledby="facts-heading">
+      <h2 id="facts-heading">Fun facts</h2>
+
+      <table class="team-table">
+        <caption>A few things about us</caption>
+        <thead>
+          <tr>
+            <th scope="col">Member</th>
+            <th scope="col">First language</th>
+            <th scope="col">Fun fact</th>
+            <th scope="col">Another fun fact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Vihaan Nambi</th>
+            <td>English</td>
+            <td>Coaches both basketball and tennis</td>
+            <td>Spends his weekends hiking</td>
+          </tr>
+          <tr>
+            <th scope="row">Kevin Lee</th>
+            <td>Korean</td>
+            <td>His Korean name means "the first", because he is the eldest child</td>
+            <td>Currently unemployed and open to offers</td>
+          </tr>
+          <tr>
+            <th scope="row">Hoang Nam Nguyen</th>
+            <td>Vietnamese</td>
+            <td>Once dreamed of becoming a professional footballer</td>
+            <td>Australia is the first country he visited outside Vietnam</td>
+          </tr>
+          <tr>
+            <th scope="row">Lan Nguyen</th>
+            <td>Vietnamese</td>
+            <td>Born in Vietnam</td>
+            <td>Has one brother</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <h2 class="visually-hidden">Site information</h2>
+
+    <ul class="footer-links">
+      <li><a href="https://student-team-jgdgr2kt.atlassian.net/jira/software/projects/G03/boards/35">Jira project board</a></li>
+      <li><a href="https://github.com/thehonouredgooner/G03-Community-and-Social-Services-Organisation">GitHub repository</a></li>
+      <li><a href="mailto:info@communityconnect.org.au">info@communityconnect.org.au</a></li>
+    </ul>
+
+    <p class="copyright">
+      &copy; 2026 Community Connect. All rights reserved.
+    </p>
+  </footer>
+
+</body>
+</html>
