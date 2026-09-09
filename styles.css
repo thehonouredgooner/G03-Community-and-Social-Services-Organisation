@@ -1,0 +1,68 @@
+/* ----------------------------------------------------------
+   1. COLOURS AND BASE                       (owner: TBA)
+   ---------------------------------------------------------- */
+ 
+ 
+/* ----------------------------------------------------------
+   2. NAVIGATION                             (owner: TBA)
+   ---------------------------------------------------------- */
+ 
+ 
+/* ----------------------------------------------------------
+   3. FOOTER                                 (owner: TBA)
+   ---------------------------------------------------------- */
+ 
+ 
+/* ----------------------------------------------------------
+   4. HOME PAGE - index.html                 (owner: TBA)
+   ---------------------------------------------------------- */
+ 
+ 
+/* ----------------------------------------------------------
+   5. JOBS PAGE - jobs.html                  (owner: TBA)
+   ---------------------------------------------------------- */
+
+
+
+/* ----------------------------------------------------------
+   6. APPLY PAGE - apply.html                  (owner: Kevin)
+   ---------------------------------------------------------- */
+
+/* Stops the inputs stretching right across a wide monitor. */
+.page-apply form {
+    max-width: 800px;
+}
+
+/* Flexbox puts the label and its input side by side on one row. */
+.page-apply .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+ 
+/* 0 0 11rem = never grow, never shrink, always 11rem wide 
+   fixed width, so every input starts at the same point. */
+.page-apply .form-row label {
+    flex: 0 0 11rem;
+}
+ 
+/* 1 1 12rem = fills the space left over, and wraps when it cannot fit. */
+.page-apply .form-row input,
+.page-apply .form-row select {
+    flex: 1 1 12rem;
+}
+ 
+/* On a phone everything takes the full row, so the label sits above. */
+@media (max-width: 600px) {
+    .page-apply .form-row label,
+    .page-apply .form-row input,
+    .page-apply .form-row select {
+        flex: 1 1 100%;
+    }
+}
+
+
+/* ----------------------------------------------------------
+   7. ABOUT PAGE - about.html                (owner: TBA)
+   ---------------------------------------------------------- */

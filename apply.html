@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Apply | [Company Name]</title>
+        <meta charset="UTF-8">
+        <meta name="description" content="Apply for a position at [Company Name]. Submit your job application online.">
+        <meta name="keywords" content="job application, apply, careers, recruitment">
+        <meta name="author" content="Kevin Lee">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="styles.css">
+
+        <!-- Parts of this form were drafted with help from Claude (Anthropic), then reviewed and edited by the author. -->
+        
+        <!-- EMBEDDED CSS: only this page has a form, so these two rules are kept here instead of in styles.css. -->
+        <style>
+            .req {
+                color: #A02020;          /* dark red */
+                font-weight: bold;
+                margin-left: 2px;
+            }
+
+            .hint {
+                display: block;
+                font-size: 0.85em;
+                color: #4A4A4A;          /* readable grey */
+            }
+        </style>
+    </head>
+
+    <body class="page-apply">
+
+        <!-- Shared header and nav - the same on all four pages. -->
+        <header>
+            <h1>[Company Name]</h1>
+            <p>[Company slogan]</p>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="jobs.html">Jobs</a></li>
+                    <li><a href="apply.html" aria-current="page">Apply</a></li>
+                    <li><a href="about.html">About</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <h2>Job Application Form</h2>
+            <p>
+                Fill in the form below to apply for one of our advertised roles.
+                Fields marked with <span class="req">*</span> are required.
+                You can find the job reference number on the
+                <a href="jobs.html">Jobs</a> page.
+            </p>
+
+            <!-- POST is used because the form sends personal details. The action URL is set by the unit. -->
+            <form action="https://mercury.swin.edu.au/it000000/formtest.php" method="post">        
+                <fieldset>
+                    <legend>Personal Details</legend>
+
+                    <!-- {6} means exactly six letters or numbers, no more and no less. -->
+                    <div class="form-row">
+                        <label for="JobRef">Job Reference Number:<span class="req" aria-hidden="true">*</span></label>
+                        <input type="text" id="JobRef" name="JobRef" 
+                            required
+                            pattern="[A-Za-z0-9]{6}" 
+                            maxlength="6"
+                            title="Six letters or numbers, for example ABC123">
+                        <small class="hint">Six letters or numbers, e.g. ABC123</small>
+                    </div>
+
+                    <div class="form-row"> 
+                        <label for="Firstname">First Name:<span class="req" aria-hidden="true">*</span></label>
+                        <input type="text" id="Firstname" name="Firstname" 
+                            required 
+                            pattern="[A-Za-z]{1,20}" 
+                            maxlength="20" 
+                            autocomplete="given-name"
+                            title="Letters only, up to 20 characters">
+                    </div>
+
+                    <div class="form-row"> 
+                        <label for="Lastname">Last Name:<span class="req" aria-hidden="true">*</span></label>
+                        <input type="text" id="Lastname" name="Lastname" 
+                            required
+                            pattern="[A-Za-z]{1,20}" 
+                            maxlength="20" 
+                            autocomplete="family-name"
+                            title="Letters only, up to 20 characters">
+                    </div>
+
+                    <!-- type="text", not type="date", because a date input forces yyyy-mm-dd and the unit asks for dd/mm/yyyy. -->
+                    <div class="form-row"> 
+                        <label for="DOB">Date of Birth:<span class="req" aria-hidden="true">*</span></label>
+                        <input type="text" id="DOB" name="DOB" 
+                            required
+                            pattern="(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/(19|20)[0-9]{2}" 
+                            maxlength="10"
+                            autocomplete="bday"
+                            title="Use the format dd/mm/yyyy, for example 09/03/2004"
+                            placeholder="dd/mm/yyyy">
+                        <small class="hint">Format: dd/mm/yyyy</small>
+                    </div>
+                </fieldset>
+
+                
+                <fieldset>
+
+                    <!-- The radios share one name, which is what groups them, and each needs its own value. -->
+                    <legend>Gender<span class="req" aria-hidden="true">*</span></legend>
+
+                    <div>
+                        <input type="radio" id="genderMale" name="gender" value="male" required>
+                        <label for="genderMale">Male</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="genderFemale" name="gender" value="female">
+                        <label for="genderFemale">Female</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="genderOther" name="gender" value="other">
+                        <label for="genderOther">Other</label>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="genderNoSay" name="gender" value="not-stated">
+                        <label for="genderNoSay">Prefer not to say</label>
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Address</legend>
+
+                    <div class="form-row">
+                        <label for="address">Street Address:<span class="req" aria-hidden="true">*</span></label>
+                        <input type="text" id="address" name="address" 
+                            required
+                            maxlength="40" 
+                            autocomplete="address-line1"
+                            title="up to 40 characters">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="suburb">Suburb/Town:<span class="req" aria-hidden="true">*</span></label>
+                        <input type="text" id="suburb" name="suburb"
+                            required   
+                            maxlength="40"
+                            autocomplete="address-level2"
+                            title="up to 40 characters">
+                    </div>
+
+                    <div class="form-row">
+                        <label for="state">State:<span class="req" aria-hidden="true">*</span></label>
+                        <select id="state" name="state" required>
+                            <option value="">Please Select</option>
+                            <option value="vic">VIC</option>
+                            <option value="nsw">NSW</option>
+                            <option value="qld">QLD</option>
+                            <option value="nt">NT</option>
+                            <option value="wa">WA</option>
+                            <option value="sa">SA</option>
+                            <option value="tas">TAS</option>
+                            <option value="act">ACT</option>
+                        </select>
+                    </div>
+
+                    <!-- type="text" keeps the leading zero in NT postcodes such as 0800, which type="number" would drop. -->
+                    <div class="form-row">
+                        <label for="postcode">Postcode:<span class="req" aria-hidden="true">*</span></label>
+                        <input type="text" id="postcode" name="postcode" 
+                            required
+                            maxlength="4"
+                            pattern="[0-9]{4}" 
+                            inputmode="numeric"
+                            autocomplete="postal-code"
+                            title="Exactly four digits, for example 3000">
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Contact</legend>
+
+                    <!-- type="email" checks the format on its own, so no pattern is needed. -->
+                    <div class="form-row">
+                        <label for="email">Email:<span class="req" aria-hidden="true">*</span></label>
+                        <input type="email" id="email" name="email" 
+                            required
+                            autocomplete="email"
+                            title="Enter a valid email address, for example name@example.com">
+                    </div>
+                    
+                    <!-- {8,12} allows 8 to 12 digits. -->
+                    <div class="form-row">
+                        <label for="phone">Phone Number:<span class="req" aria-hidden="true">*</span></label>
+                        <input type="tel" id="phone" name="phone" 
+                            required
+                            pattern="[0-9]{8,12}"                            
+                            maxlength="12" 
+                            inputmode="numeric"
+                            autocomplete="tel"
+                            title="Between 8 and 12 digits, numbers only">                        
+                        <small class="hint">8 to 12 digits, no spaces</small>
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Skill List</legend>
+
+                    <!-- name="skills[]" lets PHP receive every box that was ticked, not just the last one. -->
+                    <div>
+                        <input type="checkbox" id="skillMaintenance" name="skills[]" value="maintenance">
+                        <label for="skillMaintenance">Maintenance</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" id="skillEvent" name="skills[]" value="event-planning">
+                        <label for="skillEvent">Event Planning</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" id="skillAdvert" name="skills[]" value="advertising">
+                        <label for="skillAdvert">Advertising</label>
+                    </div>
+
+                    <div>
+                        <input type="checkbox" id="skillCustomer" name="skills[]" value="customer-service">
+                        <label for="skillCustomer">Customer Service</label>
+                    </div>
+                    
+                </fieldset>
+
+                <fieldset>
+                    <legend>Other Skills</legend>
+
+                    <!-- INLINE CSS: a one-off rule so the box cannot be dragged wider than the form. -->
+                    <div>
+                        <label for="otherSkills">Other skills (optional)</label>
+                        <br>
+                        <textarea id="otherSkills" name="otherSkills"
+                                rows="5" cols="40"
+                                style="resize: vertical;"></textarea>
+                    </div>
+            </fieldset>
+                
+            <div>
+                <button type="submit">Submit application</button>
+                <button type="reset">Clear form</button>
+            </div>
+
+            </form>
+
+        </main>
+
+
+        <!-- Shared footer - the three project links are required on the site. -->
+        <footer>
+            <ul>
+                <li><a href="https://student-team-jgdgr2kt.atlassian.net/jira/software/projects/G03/boards/35">Jira board</a></li>
+                <li><a href="https://github.com/thehonouredgooner/G03-Community-and-Social-Services-Organisation">GitHub repository</a></li>
+                <li><a href="mailto:info@companyname.com">info@companyname.com</a></li>
+            </ul>
+            <p>&copy; 2026 [Company Name]. Group [G0X], COS10026.</p>
+        </footer>
+    </body>
+    </html>
