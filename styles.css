@@ -272,6 +272,7 @@ textarea:focus {
 .page-apply .form-row {
     display: flex;
     flex-wrap: wrap;
+    align-items: baseline;
     gap: 1rem;
     margin-bottom: 1rem;
 }
@@ -279,7 +280,7 @@ textarea:focus {
 /* 0 0 11rem = never grow, never shrink, always 11rem wide 
    fixed width, so every input starts at the same point. */
 .page-apply .form-row label {
-    flex: 0 0 11rem;
+    flex: 0 0 13rem;
 }
  
 /* 1 1 12rem = fills the space left over, and wraps when it cannot fit. */
