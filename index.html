@@ -6,27 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Community Connect is a not-for-profit supporting volunteers, community programs, events and local support services.">
     <meta name="author" content="Community Connect">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> /* access to the style sheet (styles.css)*/ 
     <style>
-    .page-home .hero-content h1 {
+    .page-home .hero-content h1 {           /* EMBEDDED CSS (required on every page): a small, page-specific tweak. Kept here rather than in styles.css since only the home page uses it. */
       letter-spacing: -0.01em;
     }
+    
     </style>
 
 </head>
 
-<body class="page-home">
+<body class="pageHome">
 
-  <a class="skip-link" href="#main-content">
+  <a class="skipLink" href="#mainContent"> <!-- A skip link allowing the users to skip the nav to access the main content-->
     Skip to main content
   </a>
-  <header class="site-header">
+  <header class="siteHeader">
     <a class="brand" href="index.html">
       <img src="images/logo.png" alt="Community Connect logo" height="56">
-      <span class="brand-name">Community Connect</span>
+      <span class="brandName">Community Connect</span>
     </a>
 
-    <nav class="site-nav" aria-label="Main navigation">
+    <nav class="siteNav" aria-label="Main navigation">
       <ul>
         <li><a href="index.html" aria-current="page">Home</a></li>
         <li><a href="jobs.html">Jobs</a></li>
@@ -53,15 +54,13 @@
              alt="Volunteers and community members working together at a local event">
       </div>
 
-     <section aria-labelledby="services-heading">
+     <section aria-labelledby="servicesHeading">
       <h2 id="servicesHeading">Our Services</h2>
       <p>
-        We deliver a small number of programs, well. Each one is designed around a
-        specific community need, from everyday volunteering through to emergency
-        support and public events.
+        We deliver a small number of programs, well. Each one is designed around a specific community need, from everyday volunteering through to emergency support and public events.
       </p>
  
-      <table class="services-table">
+      <table class="servicesTable">
         <caption>Overview of Community Connect's core program areas</caption>
         <thead>
           <tr>
@@ -86,7 +85,7 @@
           </tr>
           <tr>
             <td>Support &amp; Donations</td>
-            <td rowspan="2">Connecting people to material and financial support</td>
+            <td rowspan="2">Connecting people in need to material and financial support</td>
             <td>Families in need</td>
           </tr>
           <tr>
@@ -97,28 +96,50 @@
       </table>
     </section>
 
-    <section aria-labelledby="events-heading">
-      <h2 id="events-heading">Upcoming Events</h2>
+    <section aria-labelledby="eventsHeading">
+      <h2 id="eventsHeading">Upcoming Events</h2>
       <p>Join us at one of our upcoming community events, no experience is necessary, just the willingness to help.</p>
  
-      <ul class="events-list">
-        <li class="event-card">
-          <p class="event-date">Sat 19 Sep 2026</p>
+      <ul class="eventsList">
+        <li class="eventCard">
+          <p class="eventDate">Sat 19 Sep 2026</p>
           <h3>Community Food Drive</h3>
-          <p>Help sort and distribute the donated food, 9am–1pm.</p>
+          <p>Help sort and distribute the donated food, 9am-1pm.</p>
         </li>
  
-        <li class="event-card">
-          <p class="event-date">Sat 3 Oct 2026</p>
+        <li class="eventCard">
+          <p class="eventDate">Sat 3 Oct 2026</p>
           <h3>Volunteer Orientation Day</h3>
-          <p>New volunteer induction and training session, 10am–12pm.</p>
+          <p>New volunteer induction and training session, 10am-12pm.</p>
         </li>
  
-        <li class="event-card">
-          <p class="event-date">Fri 16 Oct 2026</p>
+        <li class="eventCard">
+          <p class="eventDate">Fri 16 Oct 2026</p>
           <h3>Annual Fundraising Dinner</h3>
           <p>A social evening supporting our programs</p>
         </li>
       </ul>
     </section>
+      <section class="acknowledgement" aria-labelledby="ackHeading">
+      <h2 id="ackHeading">Acknowledgement of Country</h2>
+      <p>
+        Community Connect acknowledges the Traditional Owners of the lands on which we work, live and volunteer, and recognises their continuing connection to land, waters and community. We pay our respects to Elders past and present, and are committed to working in partnership with Aboriginal and Torres Strait Islander communities as part of our ongoing programs. We welcome and encourage applications from Aboriginal and Torres Strait Islander peoples for all roles at Community Connect.
+      </p>
+    </section>
+ 
+  </main>
+ 
+  <footer class="siteFooter">
+    <h2 class="visuallyHidden">Site information</h2>
+ 
+    <ul class="footerLinks">
+      <li><a href="https://student-team-jgdgr2kt.atlassian.net/jira/software/projects/G03/boards/35">Jira project board</a></li>
+      <li><a href="https://github.com/thehonouredgooner/G03-Community-and-Social-Services-Organisation">GitHub repository</a></li>
+      <li><a href="mailto:info@communityconnect.org.au">info@communityconnect.org.au</a></li>
+    </ul>
+ 
+    <p class="copyright">&copy; 2026 Community Connect. All rights reserved.</p>
+  </footer>
+ 
+</body>
 </html>
