@@ -328,9 +328,135 @@ textarea:focus {
 }
  
 /* ----------------------------------------------------------
-   5. JOBS PAGE - jobs.html                  (owner: TBA)
+   5. JOBS PAGE - jobs.html                  (owner: Lan Nguyen)
    ---------------------------------------------------------- */
 
+.page-jobs #main-content {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 1.5rem;
+}
+
+
+.page-jobs #main-content > section:first-child {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 0;
+}
+
+
+.page-jobs #main-content > section:first-child h1 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.page-jobs #main-content > section:first-child p {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+
+.page-jobs .job-note {
+    font-style: italic;
+}
+
+
+.page-jobs section[aria-labelledby="available-jobs"] {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+
+.page-jobs section[aria-labelledby="available-jobs"] > h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+.page-jobs article {
+    padding: 1.5rem;
+    background-color: #F7FAF8;
+    border-left: 4px solid #B8860B;
+    border-top: 1px solid #C6D6CE;
+    border-right: 1px solid #C6D6CE;
+    border-bottom: 1px solid #C6D6CE;
+}
+
+
+.page-jobs article h3 {
+    margin-top: 0;
+    color: #1F3A2E;
+}
+
+
+.page-jobs article header {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #C6D6CE;
+}
+
+
+.page-jobs article h4 {
+    color: #35604A;
+    margin-bottom: 0.4rem;
+}
+
+.page-jobs article > p:last-child a {
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    background-color: #35604A;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    font-weight: 600;
+}
+
+.page-jobs article > p:last-child a:hover,
+.page-jobs article > p:last-child a:focus {
+    background-color: #1F3A2E;
+}
+
+
+.page-jobs aside {
+    padding: 1.5rem;
+    background-color: #EDF2EF;
+    border: 1px solid #C6D6CE;
+    border-top: 4px solid #B8860B;
+    align-self: start;
+}
+
+
+.page-jobs aside h2 {
+    margin-top: 0;
+}
+
+
+.page-jobs aside h3 {
+    color: #35604A;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+
+.page-jobs aside ul {
+    padding-left: 1.2rem;
+}
+
+.page-jobs aside li {
+    margin-bottom: 0.5rem;
+}
+
+
+@media screen and (max-width: 700px) {
+
+    .page-jobs #main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .page-jobs section[aria-labelledby="available-jobs"] {
+        grid-template-columns: 1fr;
+    }
+}
 
 
 /* ----------------------------------------------------------
