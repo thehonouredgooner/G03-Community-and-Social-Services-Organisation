@@ -261,6 +261,9 @@ textarea:focus {
     background-size: 28px 28px;
     background-position: 0 0, 14px 14px;
     background-color: #F7FAF8;
+    background-image:
+        radial-gradient(circle at 2px 2px, #DCE7E1 1.5px, transparent 0),
+        radial-gradient(circle at 2px 2px, #E8E2D2 1.5px, transparent 0);
 }
  
 .page-home .promContent .slogan {
@@ -477,7 +480,7 @@ textarea:focus {
     margin-bottom: 1rem;
 }
  
-/* 0 0 11rem = never grow, never shrink, always 11rem wide 
+/* 0 0 13rem = never grow, never shrink, always 13rem wide 
    fixed width, so every input starts at the same point. */
 .page-apply .form-row label {
     flex: 0 0 13rem;
