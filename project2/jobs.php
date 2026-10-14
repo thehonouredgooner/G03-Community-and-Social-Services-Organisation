@@ -1,0 +1,347 @@
+<?php $currentPage = 'jobs'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore current job opportunities at Community Connect.">
+    <title>Jobs | Community Connect</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .job-note {
+            font-style: italic;
+        }
+        
+    </style>
+</head>
+
+<body class="page-jobs">
+
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+        <a class="brand" href="index.html">
+            <img src="images/logo.png" alt="Community Connect logo" height="56">
+            <span class="brand-name">Community Connect</span>  
+        </a>
+
+        <nav class="site-nav" aria-label="Main navigation">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="jobs.html" aria-current="page">Jobs</a></li>
+                <li><a href="apply.html">Apply</a></li>
+                <li><a href="about.html">About us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+
+        <section>
+            <h1>Current Job Opportunities</h1>
+
+            <p>
+                Join Community Connect and help make a positive difference
+                in the lives of individuals, families and communities.
+            </p>
+
+            <p>
+                We are looking for passionate and dedicated people who want
+                to support our community programs and services.
+            </p>
+
+            <p class="job-note">Applications are currently open.</p>
+        </section>
+
+
+        <section aria-labelledby="available-jobs">
+            <h2 id="available-jobs">Available Positions</h2>
+
+            <article>
+                <header>
+                    <h3>Community Support Worker</h3>
+
+                    <p>
+                        <strong>Reference:</strong> CS4A7B
+                    </p>
+
+                    <p>
+                        <strong>Salary:</strong> $60,000 – $70,000 per year
+                    </p>
+
+                    <p>
+                        <strong>Reports to:</strong> Community Services Manager
+                    </p>
+                </header>
+
+                <section>
+                    <h4>Position Description</h4>
+
+                    <p>
+                        Community Connect is seeking a compassionate and
+                        reliable Community Support Worker to assist individuals
+                        and families accessing community services. The role
+                        involves providing practical support, connecting people
+                        with appropriate services and helping clients participate
+                        in community activities.
+                    </p>
+                </section>
+
+                <section>
+                    <h4>Key Responsibilities</h4>
+
+                    <ol>
+                        <li>Provide practical and emotional support to community members.</li>
+                        <li>Assist clients in accessing appropriate support services.</li>
+                        <li>Maintain accurate and confidential client records.</li>
+                        <li>Support community activities, workshops and events.</li>
+                        <li>Work with other staff and community organisations to meet client needs.</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h4>Essential Requirements</h4>
+
+                    <ul>
+                        <li>Strong communication and interpersonal skills.</li>
+                        <li>Ability to work respectfully with people from diverse backgrounds.</li>
+                        <li>Good organisation and time-management skills.</li>
+                        <li>Ability to maintain confidentiality and professional boundaries.</li>
+                        <li>Current Working with Children Check or willingness to obtain one.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h4>Preferable Requirements</h4>
+
+                    <ul>
+                        <li>Certificate or diploma in community services or a related field.</li>
+                        <li>Previous experience in a community services environment.</li>
+                        <li>First Aid certification.</li>
+                        <li>Experience working with vulnerable individuals or families.</li>
+                    </ul>
+                </section>
+
+                <p>
+                    <a href="apply.html">Apply for this position</a>
+                </p>
+            </article>
+
+
+            <article>
+                <header>
+                    <h3>Volunteer Coordinator</h3>
+
+                    <p>
+                        <strong>Reference:</strong> VO82C5
+                    </p>
+
+                    <p>
+                        <strong>Salary:</strong> $65,000 – $75,000 per year
+                    </p>
+
+                    <p>
+                        <strong>Reports to:</strong> Community Programs Manager
+                    </p>
+                </header>
+
+                <section>
+                    <h4>Position Description</h4>
+
+                    <p>
+                        We are looking for an organised and enthusiastic
+                        Volunteer Coordinator to recruit, support and manage
+                        volunteers across our community programs. The successful
+                        candidate will help volunteers find suitable opportunities
+                        and ensure they have a positive and rewarding experience.
+                    </p>
+                </section>
+
+                <section>
+                    <h4>Key Responsibilities</h4>
+
+                    <ol>
+                        <li>Recruit and register new volunteers.</li>
+                        <li>Match volunteers with suitable community programs and events.</li>
+                        <li>Provide volunteer induction and ongoing support.</li>
+                        <li>Maintain accurate volunteer records and schedules.</li>
+                        <li>Organise volunteer appreciation and engagement activities.</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h4>Essential Requirements</h4>
+
+                    <ul>
+                        <li>Excellent communication and people skills.</li>
+                        <li>Strong organisational and administrative abilities.</li>
+                        <li>Ability to work with people from a wide range of backgrounds.</li>
+                        <li>Ability to manage multiple tasks and deadlines.</li>
+                        <li>Confidence using common office and communication software.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h4>Preferable Requirements</h4>
+
+                    <ul>
+                        <li>Previous experience coordinating volunteers.</li>
+                        <li>Experience working in a not-for-profit organisation.</li>
+                        <li>Experience organising community events.</li>
+                        <li>Knowledge of volunteer management practices.</li>
+                    </ul>
+                </section>
+
+                <p>
+                    <a href="apply.html">Apply for this position</a>
+                </p>
+            </article>
+
+
+            <article>
+                <header>
+                    <h3>Community Programs Officer</h3>
+
+                    <p>
+                        <strong>Reference:</strong> CP6D9E
+                    </p>
+
+                    <p>
+                        <strong>Salary:</strong> $68,000 – $80,000 per year
+                    </p>
+
+                    <p>
+                        <strong>Reports to:</strong> Programs and Services Manager
+                    </p>
+                </header>
+
+                <section>
+                    <h4>Position Description</h4>
+
+                    <p>
+                        Community Connect is seeking a Community Programs Officer
+                        to help plan, coordinate and promote programs that respond
+                        to local community needs. This role will work with staff,
+                        volunteers and community partners to deliver accessible
+                        activities and events.
+                    </p>
+                </section>
+
+                <section>
+                    <h4>Key Responsibilities</h4>
+
+                    <ol>
+                        <li>Assist with planning and delivering community programs.</li>
+                        <li>Coordinate community events, workshops and information sessions.</li>
+                        <li>Work with volunteers and community partners.</li>
+                        <li>Promote programs and events to community members.</li>
+                        <li>Collect feedback and assist with evaluating program outcomes.</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h4>Essential Requirements</h4>
+
+                    <ul>
+                        <li>Strong written and verbal communication skills.</li>
+                        <li>Excellent planning and organisational skills.</li>
+                        <li>Ability to build positive relationships with community members.</li>
+                        <li>Ability to work independently and as part of a team.</li>
+                        <li>Commitment to inclusion, accessibility and community wellbeing.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h4>Preferable Requirements</h4>
+
+                    <ul>
+                        <li>Qualification in community development, social services or a related field.</li>
+                        <li>Previous experience coordinating community programs.</li>
+                        <li>Experience organising public events or workshops.</li>
+                        <li>Knowledge of local community services and support networks.</li>
+                    </ul>
+                </section>
+
+                <p>
+                    <a href="apply.html">Apply for this position</a>
+                </p>
+            </article>
+
+        </section>
+
+
+        <aside>
+            <h2>Why Work With Community Connect?</h2>
+
+            <p>
+                Working with Community Connect means contributing to programs
+                that make a meaningful difference in the lives of individuals,
+                families and local communities.
+            </p>
+
+            <h3>What we offer</h3>
+            <ul>
+                <li>Meaningful community-focused work</li>
+                <li>Supportive and inclusive workplace</li>
+                <li>Professional development opportunities</li>
+                <li>Opportunities to work with volunteers and community partners</li>
+                <li>Ongoing learning through community programs and workshops</li>
+            </ul>
+
+            <h3>Our workplace values</h3>
+            <p>
+                We value respect, inclusion, compassion and teamwork. Our staff
+                work together to create welcoming services that support people
+                from diverse backgrounds and strengthen community connections.
+            </p>
+
+            <h3>Interested in joining us?</h3>
+            <p>
+                If one of our current positions matches your skills and interests,
+                we encourage you to submit an application and become part of a
+                community making a positive impact every day.
+            </p>
+
+            <p>
+                Interested in making a difference?
+                <a href="apply.html">Submit your application</a> today.
+            </p>
+        </aside>
+
+    </main>
+
+
+    <footer class="site-footer">
+        <h2 class="visually-hidden">Site information</h2>
+
+        <ul class="footer-links">
+            <li>
+                <a href="https://student-team-jgdgr2kt.atlassian.net/jira/software/projects/G03/boards/35">
+                    Jira project board
+                </a>
+            </li>
+
+            <li>
+                <a href="https://github.com/thehonouredgooner/G03-Community-and-Social-Services-Organisation">
+                    GitHub repository
+                </a>
+            </li>
+
+            <li>
+                <a href="mailto:info@communityconnect.org.au">
+                    info@communityconnect.org.au
+                </a>
+            </li>
+        </ul>
+
+        <p class="copyright">
+            &copy; 2026 Community Connect. All rights reserved.
+        </p>
+    </footer>
+
+</body>
+</html>
