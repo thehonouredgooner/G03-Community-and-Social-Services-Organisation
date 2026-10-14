@@ -8,7 +8,7 @@
   <meta name="description" content="Meet the student team who designed and built the Community Connect recruitment website.">
   <title>About the Team | Community Connect</title>
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles/styles.css">
 
   <style>
     .page-about .quote-grid {

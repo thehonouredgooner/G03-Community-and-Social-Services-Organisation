@@ -9,7 +9,7 @@
         <meta name="keywords" content="job application, apply, careers, recruitment">
         <meta name="author" content="Kevin Lee">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="styles/styles.css">
 
         <!-- Parts of this form were drafted with help from Claude (Anthropic), then reviewed and edited by the author. -->
         

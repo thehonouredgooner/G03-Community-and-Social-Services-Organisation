@@ -7,9 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Explore current job opportunities at Community Connect.">
     <title>Jobs | Community Connect</title>
-    <link rel="stylesheet" href="styles.css">
-
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles/styles.css">
 
     <style>
         .job-note {

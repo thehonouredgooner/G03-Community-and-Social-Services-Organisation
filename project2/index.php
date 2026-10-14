@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Community Connect is a not-for-profit supporting volunteers, community programs, events and local support services.">
     <meta name="author" content="Community Connect">
-    <link rel="stylesheet" href="styles.css"> <!-- access to the style sheet (styles.css) -->
+    <link rel="stylesheet" href="styles/styles.css"> <!-- access to the style sheet (styles.css) -->
 
     <!-- EMBEDDED CSS (required on every page) -->
     <style>
