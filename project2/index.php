@@ -1,5 +1,6 @@
 <!-- There is usage of Anthropic AI through the Claude API, which I, Vihaan Nambi, had reviewed and made any necessary modifications
  to make the code -->
+<?php $currentPage = 'index'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,17 +26,8 @@
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <!-- Shared header and nav -->
-<?php require __DIR__ . '/header.inc'; ?>
-
-        <nav class="site-nav" aria-label="Main navigation">
-            <ul>
-                <li><a href="index.html" aria-current="page">Home</a></li>
-                <li><a href="jobs.html">Jobs</a></li>
-                <li><a href="apply.html">Apply</a></li>
-                <li><a href="about.html">About us</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php require __DIR__ . '/header.inc'; ?>
+    <?php require __DIR__ . '/nav.inc'; ?>
 
     <main id="main-content">
 
@@ -53,7 +45,7 @@
                 </p>
                 <p>
                     If you're interested in volunteering or learning more about our
-                    programs, please visit our <a href="apply.html">Apply</a> page or
+                    programs, please visit our <a href="apply.php">Apply</a> page or
                     contact us directly at
                     <a href="mailto:info@communityconnect.org.au">info@communityconnect.org.au</a>.
                 </p>
