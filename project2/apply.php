@@ -1,3 +1,5 @@
+<?php $currentPage = 'apply'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -29,22 +31,11 @@
 
     <body class="page-apply"><a class="skip-link" href="#main-content">Skip to main content</a>
 
-        <!-- Shared header and nav - the same on all four pages. -->
-        <header class="site-header">
-            <a class="brand" href="index.html">
-                <img src="images/logo.png" alt="Community Connect logo" height="56">
-                <span class="brand-name">Community Connect</span>
-            </a>
+    
+    <!-- Shared header and navigation -->
+    <?php require __DIR__ . '/header.inc'; ?>
+    <?php require __DIR__ . '/nav.inc'; ?>
 
-            <nav class="site-nav" aria-label="Main navigation">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="jobs.html">Jobs</a></li>
-                    <li><a href="apply.html" aria-current="page">Apply</a></li>
-                    <li><a href="about.html">About us</a></li>
-                </ul>
-            </nav>
-        </header>
 
         <main id="main-content">
             <h1>Job Application Form</h1>
@@ -52,7 +43,7 @@
                 Fill in the form below to apply for one of our advertised roles.
                 Fields marked with <span class="req">*</span> are required.
                 You can find the job reference number on the
-                <a href="jobs.html">Jobs</a> page.
+                <a href="jobs.php">Jobs</a> page.
             </p>
 
             <!-- POST is used because the form sends personal details. The action URL is set by the unit. -->
