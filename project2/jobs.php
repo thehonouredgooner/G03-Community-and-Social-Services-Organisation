@@ -23,21 +23,8 @@
 
     <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <header class="site-header">
-        <a class="brand" href="index.html">
-            <img src="images/logo.png" alt="Community Connect logo" height="56">
-            <span class="brand-name">Community Connect</span>  
-        </a>
-
-        <nav class="site-nav" aria-label="Main navigation">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="jobs.html" aria-current="page">Jobs</a></li>
-                <li><a href="apply.html">Apply</a></li>
-                <li><a href="about.html">About us</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php require __DIR__ . '/header.inc'; ?>
+    <?php require __DIR__ . '/nav.inc'; ?>
 
     <main id="main-content">
 
@@ -127,7 +114,7 @@
                 </section>
 
                 <p>
-                    <a href="apply.html">Apply for this position</a>
+                    <a href="apply.php">Apply for this position</a>
                 </p>
             </article>
 
@@ -197,7 +184,7 @@
                 </section>
 
                 <p>
-                    <a href="apply.html">Apply for this position</a>
+                    <a href="apply.php">Apply for this position</a>
                 </p>
             </article>
 
@@ -267,7 +254,7 @@
                 </section>
 
                 <p>
-                    <a href="apply.html">Apply for this position</a>
+                    <a href="apply.php">Apply for this position</a>
                 </p>
             </article>
 
@@ -308,7 +295,7 @@
 
             <p>
                 Interested in making a difference?
-                <a href="apply.html">Submit your application</a> today.
+                <a href="apply.php">Submit your application</a> today.
             </p>
         </aside>
 
