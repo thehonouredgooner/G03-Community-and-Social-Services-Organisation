@@ -1,3 +1,5 @@
+<?php $currentPage = 'about'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,21 +32,8 @@
 <body class="page-about">
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <header class="site-header">
-    <a class="brand" href="index.html">
-      <img src="images/logo.png" alt="Community Connect logo" height="56">
-      <span class="brand-name">Community Connect</span>
-    </a>
-
-    <nav class="site-nav" aria-label="Main navigation">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="jobs.html">Jobs</a></li>
-        <li><a href="apply.html">Apply</a></li>
-        <li><a href="about.html" aria-current="page">About us</a></li>
-      </ul>
-    </nav>
-  </header>
+  <?php require __DIR__ . '/header.inc'; ?>
+  <?php require __DIR__ . '/nav.inc'; ?>
 
   <main id="main-content">
     <h1>About the team</h1>
