@@ -46,8 +46,8 @@
                 <a href="jobs.php">Jobs</a> page.
             </p>
 
-            <!-- POST is used because the form sends personal details. The action URL is set by the unit. -->
-            <form action="https://mercury.swin.edu.au/it000000/formtest.php" method="post">        
+                <!-- Browser validation is switched off with novalidate, so every rule is checked again on the server. -->
+                <form action="process_eoi.php" method="post" novalidate>     
                 <fieldset>
                     <legend>Personal Details</legend>
 
