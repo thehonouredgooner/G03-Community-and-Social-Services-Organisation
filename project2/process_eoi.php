@@ -191,19 +191,64 @@ if (count($skills) == 0) {
 
         <main id="main-content">
             <?php
+            
             if ($err_msg != "") {
-                // Show the errors and send the user back to fix them.
+                // Validation failed — show the errors and a link back to the form.
                 echo "<h1>We could not save your application</h1>";
                 echo "<p>Please fix the following and submit again:</p>";
                 echo $err_msg;
                 echo "<p><a href='apply.php'>Back to the application form</a></p>";
+
             } else {
-                // Validation passed. STEP 5 will save the record here.
-                echo "<h1>Validation passed</h1>";
-                echo "<p>All fields are valid. Saving to the database is the next step.</p>";
+                // STEP 5: No errors, so save the record.
+                // Escape every value to block SQL injection (Week 9 Lab pattern).
+                $job_reference = mysqli_real_escape_string($conn, $job_reference);
+                $first_name    = mysqli_real_escape_string($conn, $first_name);
+                $last_name     = mysqli_real_escape_string($conn, $last_name);
+                $gender        = mysqli_real_escape_string($conn, $gender);
+                $street        = mysqli_real_escape_string($conn, $street);
+                $suburb        = mysqli_real_escape_string($conn, $suburb);
+                $state         = mysqli_real_escape_string($conn, $state);
+                $postcode      = mysqli_real_escape_string($conn, $postcode);
+                $email         = mysqli_real_escape_string($conn, $email);
+                $phone         = mysqli_real_escape_string($conn, $phone);
+                $other_skills  = mysqli_real_escape_string($conn, $other_skills);
+
+                // Build the INSERT. EOInumber and status are left out on purpose:
+                // the database fills EOInumber (AUTO_INCREMENT) and status (DEFAULT 'New').
+                $insert_sql = "INSERT INTO eoi (
+                    job_reference, first_name, last_name, date_of_birth, gender,
+                    street_address, suburb, state, postcode, email, phone,
+                    skill_maintenance, skill_event_planning,
+                    skill_advertising, skill_customer_service,
+                    other_skills
+                ) VALUES (
+                    '$job_reference', '$first_name', '$last_name', '$dob_mysql', '$gender',
+                    '$street', '$suburb', '$state', '$postcode', '$email', '$phone',
+                    $skill_maintenance, $skill_event_planning,
+                    $skill_advertising, $skill_customer_service,
+                    '$other_skills'
+                )";
+
+                $insert_result = mysqli_query($conn, $insert_sql);
+
+                if ($insert_result) {
+                    // Get the EOInumber the database just generated.
+                    $eoi_number = mysqli_insert_id($conn);
+
+                    echo "<h1>Thank you, " . $first_name . "</h1>";
+                    echo "<p>Your application has been received.</p>";
+                    echo "<p>Your EOI number is <strong>" . $eoi_number . "</strong>.</p>";
+                    echo "<p>Please keep this number for your records.</p>";
+                    echo "<p><a href='index.php'>Back to Home</a></p>";
+                } else {
+                    echo "<h1>Something went wrong</h1>";
+                    echo "<p>We could not save your application. Please try again later.</p>";
+                }
             }
 
             mysqli_close($conn);
+
             ?>
         </main>
 
