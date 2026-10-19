@@ -14,7 +14,12 @@ $groupResult = mysqli_query($conn, "SELECT * FROM about_info LIMIT 1");
 $group = mysqli_fetch_assoc($groupResult);
 
 $memberResult = mysqli_query($conn, "SELECT * FROM about_members ORDER BY id");
-$members = mysqli_fetch_all($memberResult, MYSQLI_ASSOC);
+
+$members = [];
+
+while ($member = mysqli_fetch_assoc($memberResult)) {
+    $members[] = $member;
+}
 
 mysqli_close($conn);
 ?>
@@ -79,10 +84,14 @@ mysqli_close($conn);
         </li>
         <li>Members
           <ul>
-            <li>Vihaan Nambi <span class="student-id">106546607</span></li>
-            <li>Kevin Lee <span class="student-id">106523655</span></li>
-            <li>Hoang Nam Nguyen <span class="student-id">105548039</span></li>
-            <li>Lan Nguyen <span class="student-id">106504197</span></li>
+            <?php foreach ($members as $member) { ?>
+              <li>
+                <?php echo htmlspecialchars($member['name']); ?>
+                <span class="student-id">
+                  <?php echo htmlspecialchars($member['student_id']); ?>
+                </span>
+              </li>
+            <?php } ?>
           </ul>
         </li>
       </ul>
