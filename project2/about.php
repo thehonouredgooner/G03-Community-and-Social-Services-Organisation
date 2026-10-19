@@ -149,13 +149,17 @@ mysqli_close($conn);
     <section aria-labelledby="photo-heading">
       <h2 id="photo-heading">Our team</h2>
 
+
       <figure class="group-figure">
-        <img src="images/group-photo.jpg"
-             alt="picture of the four team members"
-             style="max-width: 100%;">
-        <figcaption>left to right: Vihaan, Kevin, Nam, Lan</figcaption>
+        <img src="<?php echo htmlspecialchars($group['group_photo']); ?>"
+            alt="Picture of the four team members"
+            style="max-width: 100%;">
+
+        <figcaption>
+          <?php echo htmlspecialchars($group['photo_caption']); ?>
+        </figcaption>
       </figure>
-    </section>
+
 
     <section aria-labelledby="facts-heading">
       <h2 id="facts-heading">Fun facts</h2>
@@ -171,30 +175,22 @@ mysqli_close($conn);
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">Vihaan Nambi</th>
-            <td>English</td>
-            <td>Coaches both basketball and tennis</td>
-            <td>Spends his weekends hiking</td>
-          </tr>
-          <tr>
-            <th scope="row">Kevin Lee</th>
-            <td>Korean</td>
-            <td>His Korean name means "the first", because he is the eldest child</td>
-            <td>Currently unemployed and open to offers</td>
-          </tr>
-          <tr>
-            <th scope="row">Hoang Nam Nguyen</th>
-            <td>Vietnamese</td>
-            <td>Once dreamed of becoming a professional footballer</td>
-            <td>Australia is the first country he visited outside Vietnam</td>
-          </tr>
-          <tr>
-            <th scope="row">Lan Nguyen</th>
-            <td>Vietnamese</td>
-            <td>Born in Vietnam</td>
-            <td>Has one brother</td>
-          </tr>
+          <?php foreach ($members as $member) { ?>
+            <tr>
+              <th scope="row">
+                <?php echo htmlspecialchars($member['name']); ?>
+              </th>
+              <td>
+                <?php echo htmlspecialchars($member['first_language']); ?>
+              </td>
+              <td>
+                <?php echo htmlspecialchars($member['fun_fact1']); ?>
+              </td>
+              <td>
+                <?php echo htmlspecialchars($member['fun_fact2']); ?>
+              </td>
+            </tr>
+          <?php } ?>
         </tbody>
       </table>
     </section>
