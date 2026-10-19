@@ -130,39 +130,19 @@ mysqli_close($conn);
       <p>Something each of us enjoys or feels strongly about.</p>
 
       <div class="quote-grid"> 
+        <?php foreach ($members as $member) { ?>
+          <article class="quote-card">
+            <h3><?php echo htmlspecialchars($member['name']); ?></h3>
 
-        <article class="quote-card">
-          <h3>Vihaan Nambi</h3>
-          <blockquote lang="es">
-            <p>No tengas miedo al fracaso. Este es el camino hacia el éxito.</p>
-          </blockquote>
-          <p class="translation" lang="en">Don't be afraid of failure. This is the way to succeed.</p>
-        </article>
+            <blockquote lang="<?php echo htmlspecialchars($member['quote_language']); ?>">
+              <p><?php echo htmlspecialchars($member['quote']); ?></p>
+            </blockquote>
 
-        <article class="quote-card">
-          <h3>Kevin Lee</h3>
-          <blockquote lang="ko">
-            <p>터널 끝에 빛이 있다</p>
-          </blockquote>
-          <p class="translation" lang="en">There is always light at the end of the tunnel.</p>
-        </article>
-
-        <article class="quote-card">
-          <h3>Hoang Nam Nguyen</h3>
-          <blockquote lang="vi">
-            <p>Có công mài sắt, có ngày nên kim</p>
-          </blockquote>
-          <p class="translation" lang="en">Practice makes perfect.</p>
-        </article>
-
-        <article class="quote-card">
-          <h3>Lan Nguyen</h3>
-          <blockquote lang="vi">
-            <p>Lá lành đùm lá rách</p>
-          </blockquote>
-          <p class="translation" lang="en">Whole leaves shelter the torn ones. Those who have more look after those who have less.</p>
-        </article>
-
+            <p class="translation" lang="en">
+              <?php echo htmlspecialchars($member['quote_translation']); ?>
+            </p>
+          </article>
+        <?php } ?>
       </div>
     </section>
 
