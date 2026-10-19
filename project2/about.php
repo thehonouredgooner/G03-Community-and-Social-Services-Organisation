@@ -159,7 +159,7 @@ mysqli_close($conn);
           <?php echo htmlspecialchars($group['photo_caption']); ?>
         </figcaption>
       </figure>
-
+    </section>
 
     <section aria-labelledby="facts-heading">
       <h2 id="facts-heading">Fun facts</h2>
