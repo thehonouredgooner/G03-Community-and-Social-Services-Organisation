@@ -1,22 +1,24 @@
+
 <?php
 $currentPage = 'about';
 
-require __DIR__ . '/settings.php';
+require_once __DIR__ . '/settings.php';
 
-$conn = new mysqli($host, $user, $password, $database);
+$conn = mysqli_connect($host, $user, $password, $database);
 
-if ($conn->connect_error) {
+if (!$conn) {
     die("Database connection failed.");
 }
 
-$groupResult = $conn->query("SELECT * FROM about_info LIMIT 1");
-$group = $groupResult->fetch_assoc();
+$groupResult = mysqli_query($conn, "SELECT * FROM about_info LIMIT 1");
+$group = mysqli_fetch_assoc($groupResult);
 
-$memberResult = $conn->query("SELECT * FROM about_members ORDER BY id");
-$members = $memberResult->fetch_all(MYSQLI_ASSOC);
+$memberResult = mysqli_query($conn, "SELECT * FROM about_members ORDER BY id");
+$members = mysqli_fetch_all($memberResult, MYSQLI_ASSOC);
 
-$conn->close();
+mysqli_close($conn);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
