@@ -100,27 +100,28 @@ mysqli_close($conn);
     <section aria-labelledby="contrib-heading">
       <h2 id="contrib-heading">Who built what</h2>
 
+      
       <dl class="contributions">
-        <dt>Vihaan Nambi <span class="student-id">106546607</span></dt>
-        <dd>
-          Built the home page and its CSS styling. Wrote the event and community programs content, and was responsible for the final submission.
-        </dd>
+        <?php foreach ($members as $member) { ?>
+          <dt>
+            <?php echo htmlspecialchars($member['name']); ?>
+            <span class="student-id">
+              <?php echo htmlspecialchars($member['student_id']); ?>
+            </span>
+          </dt>
 
-        <dt>Kevin Lee <span class="student-id">106523655</span></dt>
-        <dd>
-          Built the application page and its CSS styling. Set up the team Jira board.
-        </dd>
+          <dd>
+            <strong>Part 1:</strong>
+            <?php echo htmlspecialchars($member['part1_contribution']); ?>
+          </dd>
 
-        <dt>Hoang Nam Nguyen <span class="student-id">105548039</span></dt>
-        <dd>
-           Built this page and its CSS styling, produced the organisation logo, and wrote the shared sections of the stylesheet covering the site-wide colours, navigation and footer.
-        </dd>
-
-        <dt>Lan Nguyen <span class="student-id">106504197</span></dt>
-        <dd>
-           Built the jobs page and its CSS styling. Set up the team GitHub repository and deployed the site using GitHub Pages.
-        </dd>
+          <dd>
+            <strong>Part 2:</strong>
+            <?php echo htmlspecialchars($member['part2_contribution']); ?>
+          </dd>
+        <?php } ?>
       </dl>
+
     </section>
 
     <section aria-labelledby="quotes-heading">
