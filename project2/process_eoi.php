@@ -23,7 +23,7 @@ if (!isset($_POST['JobRef'])) {
 }
 
 // Connect to the database.
-$conn = mysqli_connect($host, $user, $pwd, $sql_db);
+$conn = mysqli_connect($host, $user, $password, $database);
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
@@ -191,7 +191,7 @@ if (count($skills) == 0) {
 
         <main id="main-content">
             <?php
-            
+
             if ($err_msg != "") {
                 // Validation failed — show the errors and a link back to the form.
                 echo "<h1>We could not save your application</h1>";
