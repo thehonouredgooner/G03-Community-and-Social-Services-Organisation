@@ -1,4 +1,22 @@
-<?php $currentPage = 'about'; ?>
+<?php
+$currentPage = 'about';
+
+require __DIR__ . '/settings.php';
+
+$conn = new mysqli($host, $user, $password, $database);
+
+if ($conn->connect_error) {
+    die("Database connection failed.");
+}
+
+$groupResult = $conn->query("SELECT * FROM about_info LIMIT 1");
+$group = $groupResult->fetch_assoc();
+
+$memberResult = $conn->query("SELECT * FROM about_members ORDER BY id");
+$members = $memberResult->fetch_all(MYSQLI_ASSOC);
+
+$conn->close();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
