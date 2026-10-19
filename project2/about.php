@@ -1,4 +1,29 @@
-<?php $currentPage = 'about'; ?>
+
+<?php
+$currentPage = 'about';
+
+require_once __DIR__ . '/settings.php';
+
+$conn = mysqli_connect($host, $user, $password, $database);
+
+if (!$conn) {
+    die("Database connection failed.");
+}
+
+$groupResult = mysqli_query($conn, "SELECT * FROM about_info LIMIT 1");
+$group = mysqli_fetch_assoc($groupResult);
+
+$memberResult = mysqli_query($conn, "SELECT * FROM about_members ORDER BY id");
+
+$members = [];
+
+while ($member = mysqli_fetch_assoc($memberResult)) {
+    $members[] = $member;
+}
+
+mysqli_close($conn);
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,24 +69,29 @@
       <ul class="group-details">
         <li>Group
           <ul>
-            <li>Group code: G03</li>
-            <li>Group name: Group 3</li>
-            <li>Industry: Community and social services (not-for-profit)</li>
+            <li>Group code: <?php echo htmlspecialchars($group['group_code']); ?></li>
+            <li>Group name: <?php echo htmlspecialchars($group['group_name']); ?></li>
+            <li>Industry: <?php echo htmlspecialchars($group['industry']); ?></li>
+
           </ul>
         </li>
         <li>Tutorial class
           <ul>
-            <li>Day and time: Thursday, 4:30 pm - 6:30pm</li>
-            <li>Tutor: Rahul Raghavan</li>
-            <li>Campus: Hawthorn</li>
+            <li>Day and time: <?php echo htmlspecialchars($group['tutorial_time']); ?></li>
+            <li>Tutor: <?php echo htmlspecialchars($group['tutor']); ?></li>
+            <li>Campus: <?php echo htmlspecialchars($group['campus']); ?></li>
           </ul>
         </li>
         <li>Members
           <ul>
-            <li>Vihaan Nambi <span class="student-id">106546607</span></li>
-            <li>Kevin Lee <span class="student-id">106523655</span></li>
-            <li>Hoang Nam Nguyen <span class="student-id">105548039</span></li>
-            <li>Lan Nguyen <span class="student-id">106504197</span></li>
+            <?php foreach ($members as $member) { ?>
+              <li>
+                <?php echo htmlspecialchars($member['name']); ?>
+                <span class="student-id">
+                  <?php echo htmlspecialchars($member['student_id']); ?>
+                </span>
+              </li>
+            <?php } ?>
           </ul>
         </li>
       </ul>
@@ -70,27 +100,28 @@
     <section aria-labelledby="contrib-heading">
       <h2 id="contrib-heading">Who built what</h2>
 
+      
       <dl class="contributions">
-        <dt>Vihaan Nambi <span class="student-id">106546607</span></dt>
-        <dd>
-          Built the home page and its CSS styling. Wrote the event and community programs content, and was responsible for the final submission.
-        </dd>
+        <?php foreach ($members as $member) { ?>
+          <dt>
+            <?php echo htmlspecialchars($member['name']); ?>
+            <span class="student-id">
+              <?php echo htmlspecialchars($member['student_id']); ?>
+            </span>
+          </dt>
 
-        <dt>Kevin Lee <span class="student-id">106523655</span></dt>
-        <dd>
-          Built the application page and its CSS styling. Set up the team Jira board.
-        </dd>
+          <dd>
+            <strong>Part 1:</strong>
+            <?php echo htmlspecialchars($member['part1_contribution']); ?>
+          </dd>
 
-        <dt>Hoang Nam Nguyen <span class="student-id">105548039</span></dt>
-        <dd>
-           Built this page and its CSS styling, produced the organisation logo, and wrote the shared sections of the stylesheet covering the site-wide colours, navigation and footer.
-        </dd>
-
-        <dt>Lan Nguyen <span class="student-id">106504197</span></dt>
-        <dd>
-           Built the jobs page and its CSS styling. Set up the team GitHub repository and deployed the site using GitHub Pages.
-        </dd>
+          <dd>
+            <strong>Part 2:</strong>
+            <?php echo htmlspecialchars($member['part2_contribution']); ?>
+          </dd>
+        <?php } ?>
       </dl>
+
     </section>
 
     <section aria-labelledby="quotes-heading">
@@ -99,50 +130,34 @@
       <p>Something each of us enjoys or feels strongly about.</p>
 
       <div class="quote-grid"> 
+        <?php foreach ($members as $member) { ?>
+          <article class="quote-card">
+            <h3><?php echo htmlspecialchars($member['name']); ?></h3>
 
-        <article class="quote-card">
-          <h3>Vihaan Nambi</h3>
-          <blockquote lang="es">
-            <p>No tengas miedo al fracaso. Este es el camino hacia el éxito.</p>
-          </blockquote>
-          <p class="translation" lang="en">Don't be afraid of failure. This is the way to succeed.</p>
-        </article>
+            <blockquote lang="<?php echo htmlspecialchars($member['quote_language']); ?>">
+              <p><?php echo htmlspecialchars($member['quote']); ?></p>
+            </blockquote>
 
-        <article class="quote-card">
-          <h3>Kevin Lee</h3>
-          <blockquote lang="ko">
-            <p>터널 끝에 빛이 있다</p>
-          </blockquote>
-          <p class="translation" lang="en">There is always light at the end of the tunnel.</p>
-        </article>
-
-        <article class="quote-card">
-          <h3>Hoang Nam Nguyen</h3>
-          <blockquote lang="vi">
-            <p>Có công mài sắt, có ngày nên kim</p>
-          </blockquote>
-          <p class="translation" lang="en">Practice makes perfect.</p>
-        </article>
-
-        <article class="quote-card">
-          <h3>Lan Nguyen</h3>
-          <blockquote lang="vi">
-            <p>Lá lành đùm lá rách</p>
-          </blockquote>
-          <p class="translation" lang="en">Whole leaves shelter the torn ones. Those who have more look after those who have less.</p>
-        </article>
-
+            <p class="translation" lang="en">
+              <?php echo htmlspecialchars($member['quote_translation']); ?>
+            </p>
+          </article>
+        <?php } ?>
       </div>
     </section>
 
     <section aria-labelledby="photo-heading">
       <h2 id="photo-heading">Our team</h2>
 
+
       <figure class="group-figure">
-        <img src="images/group-photo.jpg"
-             alt="picture of the four team members"
-             style="max-width: 100%;">
-        <figcaption>left to right: Vihaan, Kevin, Nam, Lan</figcaption>
+        <img src="<?php echo htmlspecialchars($group['group_photo']); ?>"
+            alt="Picture of the four team members"
+            style="max-width: 100%;">
+
+        <figcaption>
+          <?php echo htmlspecialchars($group['photo_caption']); ?>
+        </figcaption>
       </figure>
     </section>
 
@@ -160,30 +175,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">Vihaan Nambi</th>
-            <td>English</td>
-            <td>Coaches both basketball and tennis</td>
-            <td>Spends his weekends hiking</td>
-          </tr>
-          <tr>
-            <th scope="row">Kevin Lee</th>
-            <td>Korean</td>
-            <td>His Korean name means "the first", because he is the eldest child</td>
-            <td>Currently unemployed and open to offers</td>
-          </tr>
-          <tr>
-            <th scope="row">Hoang Nam Nguyen</th>
-            <td>Vietnamese</td>
-            <td>Once dreamed of becoming a professional footballer</td>
-            <td>Australia is the first country he visited outside Vietnam</td>
-          </tr>
-          <tr>
-            <th scope="row">Lan Nguyen</th>
-            <td>Vietnamese</td>
-            <td>Born in Vietnam</td>
-            <td>Has one brother</td>
-          </tr>
+          <?php foreach ($members as $member) { ?>
+            <tr>
+              <th scope="row">
+                <?php echo htmlspecialchars($member['name']); ?>
+              </th>
+              <td>
+                <?php echo htmlspecialchars($member['first_language']); ?>
+              </td>
+              <td>
+                <?php echo htmlspecialchars($member['fun_fact1']); ?>
+              </td>
+              <td>
+                <?php echo htmlspecialchars($member['fun_fact2']); ?>
+              </td>
+            </tr>
+          <?php } ?>
         </tbody>
       </table>
     </section>
