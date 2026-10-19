@@ -64,16 +64,17 @@ mysqli_close($conn);
       <ul class="group-details">
         <li>Group
           <ul>
-            <li>Group code: G03</li>
-            <li>Group name: Group 3</li>
-            <li>Industry: Community and social services (not-for-profit)</li>
+            <li>Group code: <?php echo htmlspecialchars($group['group_code']); ?></li>
+            <li>Group name: <?php echo htmlspecialchars($group['group_name']); ?></li>
+            <li>Industry: <?php echo htmlspecialchars($group['industry']); ?></li>
+
           </ul>
         </li>
         <li>Tutorial class
           <ul>
-            <li>Day and time: Thursday, 4:30 pm - 6:30pm</li>
-            <li>Tutor: Rahul Raghavan</li>
-            <li>Campus: Hawthorn</li>
+            <li>Day and time: <?php echo htmlspecialchars($group['tutorial_time']); ?></li>
+            <li>Tutor: <?php echo htmlspecialchars($group['tutor']); ?></li>
+            <li>Campus: <?php echo htmlspecialchars($group['campus']); ?></li>
           </ul>
         </li>
         <li>Members
