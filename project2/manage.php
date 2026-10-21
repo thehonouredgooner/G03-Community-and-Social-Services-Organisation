@@ -19,6 +19,17 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
+// ----------------------------------------------------------
+// CSRF protection
+// A random token is stored in the session and added to every form
+// that changes data. A request from another site will not know the
+// token, so it cannot delete or update EOIs on the manager's behalf.
+// ----------------------------------------------------------
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrfToken = $_SESSION['csrf_token'];
+
 require_once __DIR__ . '/settings.php';
 
 $conn = mysqli_connect($host, $user, $password, $database);
@@ -60,8 +71,13 @@ function set_flash($type, $text) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action   = isset($_POST['action']) ? clean_input($_POST['action']) : '';
     $redirect = "manage.php";
+    $sentToken = isset($_POST['csrf_token']) ? $_POST['csrf_token'] : '';
 
-    if (!$eoiTableExists) {
+    if (!is_string($sentToken) || !hash_equals($csrfToken, $sentToken)) {
+        // hash_equals() compares in constant time.
+        set_flash('error', "Your session has expired. Please try again.");
+
+    } elseif (!$eoiTableExists) {
         set_flash('error', "There are no applications to change yet.");
 
     } elseif ($action === 'delete_by_job') {
@@ -409,6 +425,7 @@ function sort_controls($id, $sortOptions, $sort, $order) {
         <fieldset>
           <legend>Delete all EOIs for a job reference</legend>
           <input type="hidden" name="action" value="delete_by_job">
+          <input type="hidden" name="csrf_token" value="<?php echo e($csrfToken); ?>">
           <label for="delete_job_ref">Job reference</label>
           <input type="text" id="delete_job_ref" name="delete_job_ref" maxlength="6">
           <p class="checkbox-row">
@@ -484,6 +501,7 @@ function sort_controls($id, $sortOptions, $sort, $order) {
                   <td>
                     <form method="post" action="manage.php" class="status-form">
                       <input type="hidden" name="action" value="update_status">
+                      <input type="hidden" name="csrf_token" value="<?php echo e($csrfToken); ?>">
                       <input type="hidden" name="eoi_number" value="<?php echo e($row['EOInumber']); ?>">
                       <input type="hidden" name="return_query" value="<?php echo e($returnQuery); ?>">
                       <label for="status_<?php echo e($row['EOInumber']); ?>" class="visually-hidden">
