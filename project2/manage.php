@@ -49,6 +49,11 @@ function clean_input($data) {
 // ----------------------------------------------------------
 $query  = isset($_GET['query']) ? clean_input($_GET['query']) : 'all';
 $jobRef = isset($_GET['job_ref']) ? strtoupper(clean_input($_GET['job_ref'])) : '';
+// Names are decoded again after cleaning so an apostrophe (O'Brien) can be
+// validated and matched against the stored name. They are escaped with e()
+// whenever they are printed.
+$first  = isset($_GET['first_name']) ? htmlspecialchars_decode(clean_input($_GET['first_name']), ENT_QUOTES) : '';
+$last   = isset($_GET['last_name']) ? htmlspecialchars_decode(clean_input($_GET['last_name']), ENT_QUOTES) : '';
 $errors = [];
 
 $where  = '';      // WHERE clause with ? placeholders
@@ -65,6 +70,35 @@ if ($query === 'job') {
         $types    = 's';
         $params[] = $jobRef;
     }
+} elseif ($query === 'name') {
+    // The manager can fill in the first name, the last name, or both.
+    // Names may only contain letters, spaces, hyphens and apostrophes.
+    $namePattern = "/^[A-Za-z' -]{1,20}$/";
+    $conditions  = [];
+
+    if ($first === '' && $last === '') {
+        $errors[] = "Please enter a first name, a last name, or both.";
+    }
+    if ($first !== '' && !preg_match($namePattern, $first)) {
+        $errors[] = "First name may only contain letters, spaces, hyphens and apostrophes (max 20).";
+    }
+    if ($last !== '' && !preg_match($namePattern, $last)) {
+        $errors[] = "Last name may only contain letters, spaces, hyphens and apostrophes (max 20).";
+    }
+
+    if (count($errors) === 0) {
+        if ($first !== '') {
+            $conditions[] = "first_name LIKE ?";
+            $types       .= 's';
+            $params[]     = '%' . $first . '%';
+        }
+        if ($last !== '') {
+            $conditions[] = "last_name LIKE ?";
+            $types       .= 's';
+            $params[]     = '%' . $last . '%';
+        }
+        $where = "WHERE " . implode(" AND ", $conditions);
+    }
 } else {
     $query = 'all';
 }
@@ -79,6 +113,8 @@ $resultTitle = "All Expressions of Interest";
 
 if ($query === 'job' && count($errors) === 0) {
     $resultTitle = "Expressions of Interest for job " . $jobRef;
+} elseif ($query === 'name' && count($errors) === 0) {
+    $resultTitle = "Expressions of Interest for applicant \"" . trim($first . ' ' . $last) . "\"";
 }
 
 if ($eoiTableExists && count($errors) === 0) {
@@ -175,6 +211,21 @@ function format_skills($row) {
             <label for="job_ref">Job reference</label>
             <input type="text" id="job_ref" name="job_ref" maxlength="6"
                    value="<?php echo e($jobRef); ?>">
+            <button type="submit">Search</button>
+          </fieldset>
+        </form>
+
+        <!-- Option 3: list EOIs by applicant first name, last name or both -->
+        <form method="get" action="manage.php">
+          <fieldset>
+            <legend>List by applicant name</legend>
+            <input type="hidden" name="query" value="name">
+            <label for="first_name">First name</label>
+            <input type="text" id="first_name" name="first_name" maxlength="20"
+                   value="<?php echo e($first); ?>">
+            <label for="last_name">Last name</label>
+            <input type="text" id="last_name" name="last_name" maxlength="20"
+                   value="<?php echo e($last); ?>">
             <button type="submit">Search</button>
           </fieldset>
         </form>
