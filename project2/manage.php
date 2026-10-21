@@ -56,6 +56,29 @@ $first  = isset($_GET['first_name']) ? htmlspecialchars_decode(clean_input($_GET
 $last   = isset($_GET['last_name']) ? htmlspecialchars_decode(clean_input($_GET['last_name']), ENT_QUOTES) : '';
 $errors = [];
 
+// ----------------------------------------------------------
+// Sort options
+// Column names cannot be bound as ? parameters, so the manager's
+// choice is checked against this whitelist and only a known column
+// name is ever placed into the ORDER BY clause.
+// ----------------------------------------------------------
+$sortOptions = [
+    'EOInumber'     => 'EOI number',
+    'job_reference' => 'Job reference',
+    'first_name'    => 'First name',
+    'last_name'     => 'Last name',
+    'date_of_birth' => 'Date of birth',
+    'state'         => 'State',
+    'status'        => 'Status',
+];
+
+$sort  = isset($_GET['sort']) ? clean_input($_GET['sort']) : 'EOInumber';
+$order = (isset($_GET['order']) && $_GET['order'] === 'desc') ? 'desc' : 'asc';
+
+if (!array_key_exists($sort, $sortOptions)) {
+    $sort = 'EOInumber';
+}
+
 $where  = '';      // WHERE clause with ? placeholders
 $types  = '';      // bind_param type string
 $params = [];      // values for the placeholders
@@ -118,7 +141,13 @@ if ($query === 'job' && count($errors) === 0) {
 }
 
 if ($eoiTableExists && count($errors) === 0) {
-    $sql  = "SELECT * FROM eoi $where ORDER BY EOInumber ASC";
+    // EOInumber is added as a tie-breaker so equal values stay in a stable order.
+    $orderBy = $sort . ' ' . strtoupper($order);
+    if ($sort !== 'EOInumber') {
+        $orderBy .= ', EOInumber ASC';
+    }
+
+    $sql  = "SELECT * FROM eoi $where ORDER BY $orderBy";
     $stmt = mysqli_prepare($conn, $sql);
 
     if (count($params) > 0) {
@@ -164,6 +193,25 @@ function format_skills($row) {
 
     return count($skills) > 0 ? implode(', ', $skills) : 'None selected';
 }
+
+// Prints the "sort by" controls. Used in every query form so the chosen
+// sort field is applied whichever list the manager asks for.
+// $id makes each label/select pair unique on the page.
+function sort_controls($id, $sortOptions, $sort, $order) {
+    echo '<label for="sort_' . $id . '">Sort by</label>' . "\n";
+    echo '<select id="sort_' . $id . '" name="sort">' . "\n";
+    foreach ($sortOptions as $column => $label) {
+        $selected = ($column === $sort) ? ' selected' : '';
+        echo '  <option value="' . e($column) . '"' . $selected . '>' . e($label) . '</option>' . "\n";
+    }
+    echo '</select>' . "\n";
+
+    echo '<label for="order_' . $id . '">Order</label>' . "\n";
+    echo '<select id="order_' . $id . '" name="order">' . "\n";
+    echo '  <option value="asc"'  . ($order === 'asc'  ? ' selected' : '') . '>Ascending</option>' . "\n";
+    echo '  <option value="desc"' . ($order === 'desc' ? ' selected' : '') . '>Descending</option>' . "\n";
+    echo '</select>' . "\n";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -199,6 +247,7 @@ function format_skills($row) {
           <fieldset>
             <legend>List all EOIs</legend>
             <input type="hidden" name="query" value="all">
+            <?php sort_controls('all', $sortOptions, $sort, $order); ?>
             <button type="submit">List all</button>
           </fieldset>
         </form>
@@ -211,6 +260,7 @@ function format_skills($row) {
             <label for="job_ref">Job reference</label>
             <input type="text" id="job_ref" name="job_ref" maxlength="6"
                    value="<?php echo e($jobRef); ?>">
+            <?php sort_controls('job', $sortOptions, $sort, $order); ?>
             <button type="submit">Search</button>
           </fieldset>
         </form>
@@ -226,6 +276,7 @@ function format_skills($row) {
             <label for="last_name">Last name</label>
             <input type="text" id="last_name" name="last_name" maxlength="20"
                    value="<?php echo e($last); ?>">
+            <?php sort_controls('name', $sortOptions, $sort, $order); ?>
             <button type="submit">Search</button>
           </fieldset>
         </form>
@@ -250,7 +301,11 @@ function format_skills($row) {
         <p class="notice">No Expressions of Interest match your query.</p>
 
       <?php } else { ?>
-        <p><?php echo count($results); ?> record(s) found.</p>
+        <p>
+          <?php echo count($results); ?> record(s) found, sorted by
+          <?php echo e($sortOptions[$sort]); ?>
+          (<?php echo $order === 'asc' ? 'ascending' : 'descending'; ?>).
+        </p>
 
         <div class="table-scroll">
           <table class="eoi-table">
