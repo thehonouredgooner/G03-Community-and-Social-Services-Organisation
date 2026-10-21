@@ -27,7 +27,58 @@ if (!$conn) {
     die("Database connection failed.");
 }
 
+// ----------------------------------------------------------
+// Make sure the eoi table exists before querying it.
+// process_eoi.php creates it on the first application, so on a
+// fresh server it may not be there yet.
+// ----------------------------------------------------------
+$tableCheck = mysqli_query($conn, "SHOW TABLES LIKE 'eoi'");
+$eoiTableExists = ($tableCheck && mysqli_num_rows($tableCheck) > 0);
+
+// ----------------------------------------------------------
+// Build and run the query
+// ----------------------------------------------------------
+$results     = [];
+$resultTitle = "All Expressions of Interest";
+
+if ($eoiTableExists) {
+    $sql = "SELECT * FROM eoi ORDER BY EOInumber ASC";
+    $queryResult = mysqli_query($conn, $sql);
+
+    while ($row = mysqli_fetch_assoc($queryResult)) {
+        $results[] = $row;
+    }
+}
+
 mysqli_close($conn);
+
+// ----------------------------------------------------------
+// Display helpers
+// ----------------------------------------------------------
+
+// Escapes a value before it is printed into the page.
+function e($value) {
+    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+}
+
+// Turns the four skill columns into one readable list.
+function format_skills($row) {
+    $labels = [
+        'skill_maintenance'      => 'Maintenance',
+        'skill_event_planning'   => 'Event planning',
+        'skill_advertising'      => 'Advertising',
+        'skill_customer_service' => 'Customer service',
+    ];
+
+    $skills = [];
+    foreach ($labels as $column => $label) {
+        if (!empty($row[$column])) {
+            $skills[] = $label;
+        }
+    }
+
+    return count($skills) > 0 ? implode(', ', $skills) : 'None selected';
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,6 +104,64 @@ mysqli_close($conn);
       Logged in as <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>.
       Use the options below to search, sort and update applications.
     </p>
+
+    <section aria-labelledby="results-heading">
+      <h2 id="results-heading"><?php echo e($resultTitle); ?></h2>
+
+      <?php if (!$eoiTableExists) { ?>
+        <p class="notice">No applications have been submitted yet.</p>
+
+      <?php } elseif (count($results) === 0) { ?>
+        <p class="notice">No Expressions of Interest match your query.</p>
+
+      <?php } else { ?>
+        <p><?php echo count($results); ?> record(s) found.</p>
+
+        <div class="table-scroll">
+          <table class="eoi-table">
+            <thead>
+              <tr>
+                <th scope="col">EOI #</th>
+                <th scope="col">Job ref</th>
+                <th scope="col">Applicant</th>
+                <th scope="col">Date of birth</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Address</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Skills</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($results as $row) { ?>
+                <tr>
+                  <td><?php echo e($row['EOInumber']); ?></td>
+                  <td><?php echo e($row['job_reference']); ?></td>
+                  <td><?php echo e($row['first_name'] . ' ' . $row['last_name']); ?></td>
+                  <td><?php echo e($row['date_of_birth']); ?></td>
+                  <td><?php echo e($row['gender']); ?></td>
+                  <td>
+                    <?php echo e($row['street_address']); ?><br>
+                    <?php echo e($row['suburb'] . ' ' . strtoupper($row['state']) . ' ' . $row['postcode']); ?>
+                  </td>
+                  <td>
+                    <?php echo e($row['email']); ?><br>
+                    <?php echo e($row['phone']); ?>
+                  </td>
+                  <td>
+                    <?php echo e(format_skills($row)); ?>
+                    <?php if (!empty($row['other_skills'])) { ?>
+                      <br><em>Other:</em> <?php echo e($row['other_skills']); ?>
+                    <?php } ?>
+                  </td>
+                  <td><?php echo e($row['status']); ?></td>
+                </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
+      <?php } ?>
+    </section>
   </main>
 
   <!-- Shared footer -->
