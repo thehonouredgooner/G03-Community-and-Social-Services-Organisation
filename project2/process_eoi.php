@@ -52,21 +52,23 @@ $create_table = "CREATE TABLE IF NOT EXISTS eoi (
 mysqli_query($conn, $create_table);
 
 // STEP 3: Sanitise every text value that came from the form.
-$job_reference = sanitise_input($_POST['JobRef']);
-$first_name    = sanitise_input($_POST['Firstname']);
-$last_name     = sanitise_input($_POST['Lastname']);
-$dob           = sanitise_input($_POST['DOB']);
-$gender        = isset($_POST['gender']) ? sanitise_input($_POST['gender']) : "";
-$street        = sanitise_input($_POST['address']);
-$suburb        = sanitise_input($_POST['suburb']);
-$state         = sanitise_input($_POST['state']);
-$postcode      = sanitise_input($_POST['postcode']);
-$email         = sanitise_input($_POST['email']);
-$phone         = sanitise_input($_POST['phone']);
-$other_skills  = sanitise_input($_POST['otherSkills']);
+$job_reference = sanitise_input($_POST['JobRef'] ?? '');
+$first_name    = sanitise_input($_POST['Firstname'] ?? '');
+$last_name     = sanitise_input($_POST['Lastname'] ?? '');
+$dob           = sanitise_input($_POST['DOB'] ?? '');
+$gender        = sanitise_input($_POST['gender'] ?? '');
+$street        = sanitise_input($_POST['address'] ?? '');
+$suburb        = sanitise_input($_POST['suburb'] ?? '');
+$state         = sanitise_input($_POST['state'] ?? '');
+$postcode      = sanitise_input($_POST['postcode'] ?? '');
+$email         = sanitise_input($_POST['email'] ?? '');
+$phone         = sanitise_input($_POST['phone'] ?? '');
+$other_skills  = sanitise_input($_POST['otherSkills'] ?? '');
 
 // Checkboxes: if a box was ticked it is in $_POST, otherwise it is not.
-$skills = isset($_POST['skills']) ? $_POST['skills'] : array();
+// Make sure skills is really an array before we use it.
+$skills = (isset($_POST['skills']) && is_array($_POST['skills']))
+          ? $_POST['skills'] : array();
 $skill_maintenance      = in_array("maintenance", $skills) ? 1 : 0;
 $skill_event_planning   = in_array("event-planning", $skills) ? 1 : 0;
 $skill_advertising      = in_array("advertising", $skills) ? 1 : 0;
@@ -109,9 +111,18 @@ if (strlen($dob) == 0) {
 } else if (!preg_match("/^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)[0-9]{2}$/", $dob)) {
     $err_msg .= "<p>Date of birth must be in dd/mm/yyyy format, including the slashes — for example 09/03/2004.</p>";
 } else {
-    // Split on "/" and rebuild as yyyy-mm-dd (Week 7 Appendix pattern).
+    // Format is valid. Now check it's a real calendar date — this blocks
+    // things like 31/02/2004 that the pattern alone would let through.
     $parts = explode("/", $dob);
-    $dob_mysql = $parts[2] . "-" . $parts[1] . "-" . $parts[0];
+    $day   = (int)$parts[0];
+    $month = (int)$parts[1];
+    $year  = (int)$parts[2];
+
+    if (!checkdate($month, $day, $year)) {
+        $err_msg .= "<p>That date does not exist. Please check the day and month.</p>";
+    } else {
+        $dob_mysql = $year . "-" . $parts[1] . "-" . $parts[0];
+    }
 }
 
 // Gender — one option must be chosen.
