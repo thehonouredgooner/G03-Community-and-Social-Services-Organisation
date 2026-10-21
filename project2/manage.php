@@ -43,6 +43,57 @@ function clean_input($data) {
     return $data;
 }
 
+// Stores a one-off message to show after the redirect.
+function set_flash($type, $text) {
+    $_SESSION['flash'] = ['type' => $type, 'text' => $text];
+}
+
+// ----------------------------------------------------------
+// Actions that change data (sent with POST)
+// After each action the page redirects back to itself
+// (Post/Redirect/Get), so refreshing the page can never repeat
+// a delete or an update by accident.
+// ----------------------------------------------------------
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = isset($_POST['action']) ? clean_input($_POST['action']) : '';
+
+    if (!$eoiTableExists) {
+        set_flash('error', "There are no applications to change yet.");
+
+    } elseif ($action === 'delete_by_job') {
+        $deleteRef = isset($_POST['delete_job_ref']) ? strtoupper(clean_input($_POST['delete_job_ref'])) : '';
+
+        if (!preg_match('/^[A-Z0-9]{6}$/', $deleteRef)) {
+            set_flash('error', "Delete cancelled: a job reference must be exactly 6 letters or digits.");
+        } elseif (!isset($_POST['confirm_delete'])) {
+            set_flash('error', "Delete cancelled: please tick the box to confirm.");
+        } else {
+            $stmt = mysqli_prepare($conn, "DELETE FROM eoi WHERE job_reference = ?");
+            mysqli_stmt_bind_param($stmt, 's', $deleteRef);
+            mysqli_stmt_execute($stmt);
+            $deleted = mysqli_stmt_affected_rows($stmt);
+            mysqli_stmt_close($stmt);
+
+            if ($deleted > 0) {
+                set_flash('success', "Deleted $deleted EOI(s) for job $deleteRef.");
+            } else {
+                set_flash('error', "No EOIs were found for job $deleteRef, so nothing was deleted.");
+            }
+        }
+
+    } else {
+        set_flash('error', "Unknown action.");
+    }
+
+    mysqli_close($conn);
+    header("Location: manage.php");
+    exit();
+}
+
+// Read (and then clear) any message left by the last action.
+$flash = isset($_SESSION['flash']) ? $_SESSION['flash'] : null;
+unset($_SESSION['flash']);
+
 // ----------------------------------------------------------
 // Read which query the manager asked for (sent with GET so the
 // results page can be bookmarked or refreshed safely).
@@ -238,6 +289,12 @@ function sort_controls($id, $sortOptions, $sort, $order) {
       Use the options below to search, sort and update applications.
     </p>
 
+    <?php if ($flash !== null) { ?>
+      <div class="<?php echo $flash['type'] === 'success' ? 'success-box' : 'error-box'; ?>" role="status">
+        <p><?php echo e($flash['text']); ?></p>
+      </div>
+    <?php } ?>
+
     <section aria-labelledby="query-heading" class="manage-panel">
       <h2 id="query-heading">Find applications</h2>
 
@@ -281,6 +338,25 @@ function sort_controls($id, $sortOptions, $sort, $order) {
           </fieldset>
         </form>
       </div>
+    </section>
+
+    <section aria-labelledby="delete-heading" class="manage-panel danger-panel">
+      <h2 id="delete-heading">Delete applications</h2>
+
+      <!-- Deleting changes data, so it uses POST rather than GET -->
+      <form method="post" action="manage.php">
+        <fieldset>
+          <legend>Delete all EOIs for a job reference</legend>
+          <input type="hidden" name="action" value="delete_by_job">
+          <label for="delete_job_ref">Job reference</label>
+          <input type="text" id="delete_job_ref" name="delete_job_ref" maxlength="6">
+          <p class="checkbox-row">
+            <input type="checkbox" id="confirm_delete" name="confirm_delete" value="yes">
+            <label for="confirm_delete">I understand this permanently deletes every EOI for this job.</label>
+          </p>
+          <button type="submit" class="danger-button">Delete EOIs</button>
+        </fieldset>
+      </form>
     </section>
 
     <?php if (count($errors) > 0) { ?>
