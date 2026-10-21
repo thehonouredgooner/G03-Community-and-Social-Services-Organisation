@@ -43,6 +43,9 @@ function clean_input($data) {
     return $data;
 }
 
+// The three values allowed by the status ENUM in the eoi table.
+$statusOptions = ['New', 'Current', 'Final'];
+
 // Stores a one-off message to show after the redirect.
 function set_flash($type, $text) {
     $_SESSION['flash'] = ['type' => $type, 'text' => $text];
@@ -55,7 +58,8 @@ function set_flash($type, $text) {
 // a delete or an update by accident.
 // ----------------------------------------------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = isset($_POST['action']) ? clean_input($_POST['action']) : '';
+    $action   = isset($_POST['action']) ? clean_input($_POST['action']) : '';
+    $redirect = "manage.php";
 
     if (!$eoiTableExists) {
         set_flash('error', "There are no applications to change yet.");
@@ -81,12 +85,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
+    } elseif ($action === 'update_status') {
+        $eoiNumber = isset($_POST['eoi_number']) ? clean_input($_POST['eoi_number']) : '';
+        $newStatus = isset($_POST['new_status']) ? clean_input($_POST['new_status']) : '';
+
+        // Send the manager back to the same list they were looking at.
+        // Only known query keys are kept, so nothing else can be injected
+        // into the redirect.
+        if (isset($_POST['return_query'])) {
+            parse_str($_POST['return_query'], $previous);
+            $allowedKeys = ['query', 'job_ref', 'first_name', 'last_name', 'sort', 'order'];
+            $previous    = array_intersect_key($previous, array_flip($allowedKeys));
+            if (count($previous) > 0) {
+                $redirect .= "?" . http_build_query($previous);
+            }
+        }
+
+        if (!ctype_digit($eoiNumber)) {
+            set_flash('error', "Status not changed: invalid EOI number.");
+        } elseif (!in_array($newStatus, $statusOptions, true)) {
+            set_flash('error', "Status not changed: status must be New, Current or Final.");
+        } else {
+            $eoiId = (int) $eoiNumber;
+            $stmt  = mysqli_prepare($conn, "UPDATE eoi SET status = ? WHERE EOInumber = ?");
+            mysqli_stmt_bind_param($stmt, 'si', $newStatus, $eoiId);
+            mysqli_stmt_execute($stmt);
+            $changed = mysqli_stmt_affected_rows($stmt);
+            mysqli_stmt_close($stmt);
+
+            if ($changed > 0) {
+                set_flash('success', "EOI #$eoiId status changed to $newStatus.");
+            } else {
+                // Either the EOI does not exist or it already had this status.
+                $check = mysqli_prepare($conn, "SELECT status FROM eoi WHERE EOInumber = ?");
+                mysqli_stmt_bind_param($check, 'i', $eoiId);
+                mysqli_stmt_execute($check);
+                $exists = mysqli_fetch_assoc(mysqli_stmt_get_result($check));
+                mysqli_stmt_close($check);
+
+                if ($exists) {
+                    set_flash('success', "EOI #$eoiId is already set to $newStatus.");
+                } else {
+                    set_flash('error', "Status not changed: EOI #$eoiId does not exist.");
+                }
+            }
+        }
+
     } else {
         set_flash('error', "Unknown action.");
     }
 
     mysqli_close($conn);
-    header("Location: manage.php");
+    header("Location: " . $redirect);
     exit();
 }
 
@@ -176,6 +226,17 @@ if ($query === 'job') {
 } else {
     $query = 'all';
 }
+
+// Current view, sent with the status forms so the manager comes back
+// to the same list after an update.
+$returnQuery = http_build_query([
+    'query'      => $query,
+    'job_ref'    => $jobRef,
+    'first_name' => $first,
+    'last_name'  => $last,
+    'sort'       => $sort,
+    'order'      => $order,
+]);
 
 // ----------------------------------------------------------
 // Build and run the query
@@ -420,7 +481,24 @@ function sort_controls($id, $sortOptions, $sort, $order) {
                       <br><em>Other:</em> <?php echo e($row['other_skills']); ?>
                     <?php } ?>
                   </td>
-                  <td><?php echo e($row['status']); ?></td>
+                  <td>
+                    <form method="post" action="manage.php" class="status-form">
+                      <input type="hidden" name="action" value="update_status">
+                      <input type="hidden" name="eoi_number" value="<?php echo e($row['EOInumber']); ?>">
+                      <input type="hidden" name="return_query" value="<?php echo e($returnQuery); ?>">
+                      <label for="status_<?php echo e($row['EOInumber']); ?>" class="visually-hidden">
+                        Status for EOI <?php echo e($row['EOInumber']); ?>
+                      </label>
+                      <select id="status_<?php echo e($row['EOInumber']); ?>" name="new_status">
+                        <?php foreach ($statusOptions as $option) { ?>
+                          <option value="<?php echo e($option); ?>"<?php if ($option === $row['status']) echo ' selected'; ?>>
+                            <?php echo e($option); ?>
+                          </option>
+                        <?php } ?>
+                      </select>
+                      <button type="submit">Update</button>
+                    </form>
+                  </td>
                 </tr>
               <?php } ?>
             </tbody>
