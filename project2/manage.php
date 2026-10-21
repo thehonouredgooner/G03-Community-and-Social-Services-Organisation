@@ -35,19 +35,68 @@ if (!$conn) {
 $tableCheck = mysqli_query($conn, "SHOW TABLES LIKE 'eoi'");
 $eoiTableExists = ($tableCheck && mysqli_num_rows($tableCheck) > 0);
 
+// Cleans one value that came from the browser.
+function clean_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
+// ----------------------------------------------------------
+// Read which query the manager asked for (sent with GET so the
+// results page can be bookmarked or refreshed safely).
+// ----------------------------------------------------------
+$query  = isset($_GET['query']) ? clean_input($_GET['query']) : 'all';
+$jobRef = isset($_GET['job_ref']) ? strtoupper(clean_input($_GET['job_ref'])) : '';
+$errors = [];
+
+$where  = '';      // WHERE clause with ? placeholders
+$types  = '';      // bind_param type string
+$params = [];      // values for the placeholders
+
+if ($query === 'job') {
+    if ($jobRef === '') {
+        $errors[] = "Please enter a job reference to search for.";
+    } elseif (!preg_match('/^[A-Z0-9]{6}$/', $jobRef)) {
+        $errors[] = "A job reference must be exactly 6 letters or digits.";
+    } else {
+        $where    = "WHERE job_reference = ?";
+        $types    = 's';
+        $params[] = $jobRef;
+    }
+} else {
+    $query = 'all';
+}
+
 // ----------------------------------------------------------
 // Build and run the query
+// Values are never joined into the SQL string; they are bound
+// with a prepared statement to prevent SQL injection.
 // ----------------------------------------------------------
 $results     = [];
 $resultTitle = "All Expressions of Interest";
 
-if ($eoiTableExists) {
-    $sql = "SELECT * FROM eoi ORDER BY EOInumber ASC";
-    $queryResult = mysqli_query($conn, $sql);
+if ($query === 'job' && count($errors) === 0) {
+    $resultTitle = "Expressions of Interest for job " . $jobRef;
+}
+
+if ($eoiTableExists && count($errors) === 0) {
+    $sql  = "SELECT * FROM eoi $where ORDER BY EOInumber ASC";
+    $stmt = mysqli_prepare($conn, $sql);
+
+    if (count($params) > 0) {
+        mysqli_stmt_bind_param($stmt, $types, ...$params);
+    }
+
+    mysqli_stmt_execute($stmt);
+    $queryResult = mysqli_stmt_get_result($stmt);
 
     while ($row = mysqli_fetch_assoc($queryResult)) {
         $results[] = $row;
     }
+
+    mysqli_stmt_close($stmt);
 }
 
 mysqli_close($conn);
@@ -104,6 +153,41 @@ function format_skills($row) {
       Logged in as <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>.
       Use the options below to search, sort and update applications.
     </p>
+
+    <section aria-labelledby="query-heading" class="manage-panel">
+      <h2 id="query-heading">Find applications</h2>
+
+      <div class="query-forms">
+        <!-- Option 1: list every EOI -->
+        <form method="get" action="manage.php">
+          <fieldset>
+            <legend>List all EOIs</legend>
+            <input type="hidden" name="query" value="all">
+            <button type="submit">List all</button>
+          </fieldset>
+        </form>
+
+        <!-- Option 2: list EOIs for one job reference -->
+        <form method="get" action="manage.php">
+          <fieldset>
+            <legend>List by job reference</legend>
+            <input type="hidden" name="query" value="job">
+            <label for="job_ref">Job reference</label>
+            <input type="text" id="job_ref" name="job_ref" maxlength="6"
+                   value="<?php echo e($jobRef); ?>">
+            <button type="submit">Search</button>
+          </fieldset>
+        </form>
+      </div>
+    </section>
+
+    <?php if (count($errors) > 0) { ?>
+      <div class="error-box" role="alert">
+        <?php foreach ($errors as $error) { ?>
+          <p><?php echo e($error); ?></p>
+        <?php } ?>
+      </div>
+    <?php } else { ?>
 
     <section aria-labelledby="results-heading">
       <h2 id="results-heading"><?php echo e($resultTitle); ?></h2>
@@ -162,6 +246,7 @@ function format_skills($row) {
         </div>
       <?php } ?>
     </section>
+    <?php } ?>
   </main>
 
   <!-- Shared footer -->
