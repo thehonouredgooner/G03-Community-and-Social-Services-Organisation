@@ -80,7 +80,41 @@ COMMIT;
 
 
 
--- --- jobs table  (owner: TBA) -----------------------------
+-- --- jobs table  (owner: Vihaan Nambi) -----------------------------
+CREATE TABLE IF NOT EXISTS jobs (
+  job_reference CHAR(6) NOT NULL PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  description TEXT NOT NULL,
+  salary_range VARCHAR(60) NOT NULL,
+  reports_to VARCHAR(100) NOT NULL,
+  responsibilities TEXT NOT NULL,            
+  essential_qualifications TEXT NOT NULL,    
+  preferable_qualifications TEXT NULL        
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT IGNORE INTO jobs
+(job_reference, title, description, salary_range, reports_to, responsibilities, essential_qualifications, preferable_qualifications)
+VALUES
+('CS4A7B', 'Community Support Worker',
+ 'Community Connect is seeking a compassionate and reliable Community Support Worker to assist individuals and families accessing community services. The role involves providing practical support, connecting people with appropriate services and helping clients participate in community activities.',
+ '$60,000 – $70,000 per year', 'Community Services Manager',
+ 'Provide practical and emotional support to community members.\nAssist clients in accessing appropriate support services.\nMaintain accurate and confidential client records.\nSupport community activities, workshops and events.\nWork with other staff and community organisations to meet client needs.',
+ 'Strong communication and interpersonal skills.\nAbility to work respectfully with people from diverse backgrounds.\nGood organisation and time-management skills.\nAbility to maintain confidentiality and professional boundaries.\nCurrent Working with Children Check or willingness to obtain one.',
+ 'Certificate or diploma in community services or a related field.\nPrevious experience in a community services environment.\nFirst Aid certification.\nExperience working with vulnerable individuals or families.'),
+
+('VO82C5', 'Volunteer Coordinator',
+ 'We are looking for an organised and enthusiastic Volunteer Coordinator to recruit, support and manage volunteers across our community programs. The successful candidate will help volunteers find suitable opportunities and ensure they have a positive and rewarding experience.',
+ '$65,000 – $75,000 per year', 'Community Programs Manager',
+ 'Recruit and register new volunteers.\nMatch volunteers with suitable community programs and events.\nProvide volunteer induction and ongoing support.\nMaintain accurate volunteer records and schedules.\nOrganise volunteer appreciation and engagement activities.',
+ 'Excellent communication and people skills.\nStrong organisational and administrative abilities.\nAbility to work with people from a wide range of backgrounds.\nAbility to manage multiple tasks and deadlines.\nConfidence using common office and communication software.',
+ 'Previous experience coordinating volunteers.\nExperience working in a not-for-profit organisation.\nExperience organising community events.\nKnowledge of volunteer management practices.'),
+
+('CP6D9E', 'Community Programs Officer',
+ 'Community Connect is seeking a Community Programs Officer to help plan, coordinate and promote programs that respond to local community needs. This role will work with staff, volunteers and community partners to deliver accessible activities and events.',
+ '$68,000 – $80,000 per year', 'Programs and Services Manager',
+ 'Assist with planning and delivering community programs.\nCoordinate community events, workshops and information sessions.\nWork with volunteers and community partners.\nPromote programs and events to community members.\nCollect feedback and assist with evaluating program outcomes.',
+ 'Strong written and verbal communication skills.\nExcellent planning and organisational skills.\nAbility to build positive relationships with community members.\nAbility to work independently and as part of a team.\nCommitment to inclusion, accessibility and community wellbeing.',
+ 'Qualification in community development, social services or a related field.\nPrevious experience coordinating community programs.\nExperience organising public events or workshops.\nKnowledge of local community services and support networks.');
 
 -- --- user table  (owner: Vihaan Nambi) -----------------------------
 
