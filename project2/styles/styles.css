@@ -1,0 +1,794 @@
+/* ----------------------------------------------------------
+   1. COLOURS AND BASE                       (owner: Hoang Nam Nguyen)
+     ---------------------------------------------------------- */
+/* Colour palette used across the site (hexadecimal values)
+   #1F2A24  body text            #35604A  primary green
+   #1F3A2E  dark green           #B8860B  accent gold
+   #55625B  muted text           #C6D6CE  borders
+   #EDF2EF  light fill           #F7FAF8  panel background */
+ 
+* {
+    box-sizing: border-box;
+}
+ 
+body {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.6;
+    color: #1F2A24;
+    background-color: #FFFFFF;
+}
+ 
+h1, h2, h3 {
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    line-height: 1.25;
+    color: #1F3A2E;
+}
+ 
+h1 { font-size: 2rem;    margin-bottom: 0.75rem; }
+h2 { font-size: 1.45rem; margin-top: 2rem; }
+h3 { font-size: 1.1rem;  margin-top: 1.4rem; }
+ 
+p {
+    max-width: 66ch;
+}
+ 
+a {
+    color: #35604A;
+}
+ 
+a:hover,
+a:focus {
+    color: #1F3A2E;
+}
+ 
+img {
+    max-width: 100%;
+    height: auto;
+}
+ 
+main {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+}
+ 
+/* Shared table styling - used on the home page and the about page */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+ 
+th, td {
+    padding: 0.65rem 0.8rem;
+    border: 1px solid #C6D6CE;
+    text-align: left;
+    vertical-align: top;
+}
+ 
+thead th {
+    background-color: #35604A;
+    color: #FFFFFF;
+}
+ 
+caption {
+    text-align: left;
+    font-size: 0.95rem;
+    color: #55625B;
+    padding-bottom: 0.6rem;
+}
+ 
+/* Accessibility helpers */
+ 
+/* Content that only screen readers need to hear */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+ 
+/* Lets keyboard users jump past the nav straight to the content.
+   Sits off screen until it receives keyboard focus. */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    padding: 0.6rem 1rem;
+    background-color: #35604A;
+    color: #FFFFFF;
+    z-index: 100;
+}
+ 
+.skip-link:focus {
+    left: 0;
+}
+ 
+/* Visible focus outline on everything interactive */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 3px solid #B8860B;
+    outline-offset: 2px;
+}
+ 
+@media screen and (max-width: 700px) {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.25rem; }
+ 
+    main {
+        padding: 1.5rem 1rem 2.5rem;
+    }
+}
+/* ----------------------------------------------------------
+   2. NAVIGATION                             (owner: Hoang Nam Nguyen)
+   ---------------------------------------------------------- */
+ .site-header {
+    border-bottom: 3px solid #35604A;
+    background-color: #F7FAF8;
+}
+ 
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 1rem 1.25rem 0.75rem;
+    text-decoration: none;
+}
+ 
+/* Height only, so the logo keeps its own proportions */
+.brand img {
+    height: 56px;
+    width: auto;
+}
+ 
+.brand-name {
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1F3A2E;
+}
+ 
+.site-nav {
+    max-width: 68rem;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+}
+ 
+.site-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+ 
+.site-nav a {
+    display: block;
+    padding: 0.7rem 1rem;
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: #1F3A2E;
+    border-bottom: 3px solid transparent;
+}
+ 
+.site-nav a:hover,
+.site-nav a:focus {
+    background-color: #EDF2EF;
+    border-bottom-color: #C6D6CE;
+}
+ 
+/* Marks the page the visitor is currently on */
+.site-nav a[aria-current="page"] {
+    font-weight: 600;
+    border-bottom-color: #35604A;
+}
+ 
+/* Nav stacks vertically on a phone */
+@media screen and (max-width: 700px) {
+    .brand {
+        padding: 0.85rem 1rem 0.6rem;
+    }
+ 
+    .site-nav ul {
+        flex-direction: column;
+        gap: 0;
+    }
+ 
+    .site-nav a {
+        border-bottom: 1px solid #C6D6CE;
+    }
+}
+ 
+/* ----------------------------------------------------------
+   3. FOOTER                                 (owner: Hoang Nam Nguyen)
+   ---------------------------------------------------------- */
+ .site-footer {
+    margin-top: 3rem;
+    padding: 2rem 1.25rem;
+    background-color: #1F3A2E;
+    color: #FFFFFF;
+}
+ 
+.site-footer a {
+    color: #FFFFFF;
+}
+ 
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    list-style: none;
+    max-width: 68rem;
+    margin: 0 auto 1rem;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    font-size: 0.95rem;
+}
+ 
+.copyright {
+    max-width: 68rem;
+    margin: 0 auto;
+    font-size: 0.85rem;
+    color: #D6E2DA;
+}
+ 
+@media screen and (max-width: 700px) {
+    .footer-links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+ 
+/* ----------------------------------------------------------
+   4. HOME PAGE - index.html                 (owner: Vihaan Nambi)
+   ---------------------------------------------------------- */
+ .page-home .prom {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 2rem 1.25rem;
+    margin-bottom: 1rem;
+    background-size: 28px 28px;
+    background-position: 0 0, 14px 14px;
+    background-color: #F7FAF8;
+    background-image:
+        radial-gradient(circle at 2px 2px, #DCE7E1 1.5px, transparent 0),
+        radial-gradient(circle at 2px 2px, #E8E2D2 1.5px, transparent 0);
+}
+ 
+.page-home .promContent .slogan {
+    font-style: italic;
+    color: #35604A;
+}
+ 
+.page-home .btn {
+    display: inline-block;
+    background-color: #35604A;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0.6rem 1.3rem;
+    font-weight: 600;
+}
+ 
+.page-home .btn:hover,
+.page-home .btn:focus {
+    background-color: #1F3A2E;
+}
+ 
+/* Services table caption already styled globally; just cap its width to match other content */
+.page-home .servicesTable {
+    margin-top: 1rem;
+}
+ 
+/* Events section */
+.page-home .eventsList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+}
+ 
+.page-home .eventCard {
+    background-color: #F7FAF8;
+    border-left: 4px solid #B8860B;
+    padding: 1rem 1.25rem;
+}
+ 
+.page-home .eventDate {
+    font-weight: 600;
+    color: #1F3A2E;
+    margin-top: 0;
+}
+ 
+/* Acknowledgement of Country */
+.page-home .acknowledgement {
+    background-color: #1F3A2E;
+    color: #FFFFFF;
+    padding: 1.75rem;
+    margin-top: 1rem;
+}
+ 
+.page-home .acknowledgement h2 {
+    color: #FFFFFF;
+}
+ 
+@media screen and (max-width: 700px) {
+    .page-home .prom {
+        grid-template-columns: 1fr;
+    }
+}
+ 
+/* ----------------------------------------------------------
+   5. JOBS PAGE - jobs.html                  (owner: Lan Nguyen)
+   ---------------------------------------------------------- */
+
+.page-jobs #main-content {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 1.5rem;
+}
+
+
+.page-jobs #main-content > section:first-child {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 0;
+}
+
+
+.page-jobs #main-content > section:first-child h1 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.page-jobs #main-content > section:first-child p {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+
+.page-jobs .job-note {
+    font-style: italic;
+}
+
+
+.page-jobs section[aria-labelledby="available-jobs"] {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+
+.page-jobs section[aria-labelledby="available-jobs"] > h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
+.page-jobs article {
+    padding: 1.5rem;
+    background-color: #F7FAF8;
+    border-left: 4px solid #B8860B;
+    border-top: 1px solid #C6D6CE;
+    border-right: 1px solid #C6D6CE;
+    border-bottom: 1px solid #C6D6CE;
+}
+
+
+.page-jobs article h3 {
+    margin-top: 0;
+    color: #1F3A2E;
+}
+
+
+.page-jobs article header {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #C6D6CE;
+}
+
+
+.page-jobs article h4 {
+    color: #35604A;
+    margin-bottom: 0.4rem;
+}
+
+.page-jobs article > p:last-child a {
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    background-color: #35604A;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    font-weight: 600;
+}
+
+.page-jobs article > p:last-child a:hover,
+.page-jobs article > p:last-child a:focus {
+    background-color: #1F3A2E;
+}
+
+
+.page-jobs aside {
+    padding: 1.5rem;
+    background-color: #EDF2EF;
+    border: 1px solid #C6D6CE;
+    border-top: 4px solid #B8860B;
+    align-self: start;
+}
+
+
+.page-jobs aside h2 {
+    margin-top: 0;
+}
+
+
+.page-jobs aside h3 {
+    color: #35604A;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+
+.page-jobs aside ul {
+    padding-left: 1.2rem;
+}
+
+.page-jobs aside li {
+    margin-bottom: 0.5rem;
+}
+
+
+@media screen and (max-width: 700px) {
+
+    .page-jobs #main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .page-jobs section[aria-labelledby="available-jobs"] {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ----------------------------------------------------------
+   6. APPLY PAGE - apply.html                  (owner: Kevin)
+   ---------------------------------------------------------- */
+
+/* Stops the inputs stretching right across a wide monitor. */
+.page-apply form {
+    max-width: 800px;
+}
+
+/* Flexbox puts the label and its input side by side on one row. */
+.page-apply .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+ 
+/* 0 0 13rem = never grow, never shrink, always 13rem wide 
+   fixed width, so every input starts at the same point. */
+.page-apply .form-row label {
+    flex: 0 0 13rem;
+}
+ 
+/* 1 1 12rem = fills the space left over, and wraps when it cannot fit. */
+.page-apply .form-row input,
+.page-apply .form-row select {
+    flex: 1 1 12rem;
+}
+ 
+/* On a phone everything takes the full row, so the label sits above. */
+@media (max-width: 600px) {
+    .page-apply .form-row label,
+    .page-apply .form-row input,
+    .page-apply .form-row select {
+        flex: 1 1 100%;
+    }
+}
+
+
+/* ----------------------------------------------------------
+   7. ABOUT PAGE - about.html                (owner: Hoang Nam Nguyen)
+   ---------------------------------------------------------- */
+   .page-about section {
+    margin-bottom: 3rem;
+}
+ 
+/* --- Nested list: group details --- */
+ 
+.page-about .group-details {
+    line-height: 1.7;
+}
+ 
+/* Child combinator: only the top level items, not the nested ones */
+.page-about .group-details > li {
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+}
+ 
+.page-about .group-details ul li {
+    font-weight: 400;
+}
+ 
+/* --- Student ID styling (required) --- */
+ 
+.page-about .student-id {
+    font-family: "Courier New", monospace;
+    font-size: 0.9em;
+    letter-spacing: 0.05em;
+    color: #35604A;
+    background-color: #EDF2EF;
+    padding: 0.1rem 0.4rem;
+    border-radius: 2px;
+}
+ 
+/* --- Definition list: member contributions --- */
+ 
+.page-about .contributions dt {
+    font-weight: 600;
+    color: #1F3A2E;
+    margin-top: 1.25rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid #C6D6CE;
+}
+ 
+.page-about .contributions dd {
+    margin-left: 0;
+    padding: 0.6rem 0 0 1rem;
+    border-left: 3px solid #35604A;
+    line-height: 1.6;
+}
+ 
+/* --- Member quote cards --- */
+ 
+.page-about .quote-card {
+    padding: 1rem 1.25rem;
+    background-color: #F7FAF8;
+    border-left: 4px solid #B8860B;
+}
+ 
+.page-about .quote-card h3 {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #55625B;
+}
+ 
+/* --- Group photo figure (required styling) --- */
+ 
+.page-about .group-figure {
+    margin: 0;
+    max-width: 42rem;
+    padding: 0.75rem;
+    background-color: #FFFFFF;
+    border: 1px solid #C6D6CE;
+}
+ 
+.page-about .group-figure img {
+    display: block;
+}
+ 
+.page-about .group-figure figcaption {
+    margin-top: 0.65rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #55625B;
+}
+ 
+/* --- Fun facts table (required styling) --- */
+ 
+.page-about .team-table tbody th {
+    background-color: #EDF2EF;
+    font-weight: 600;
+}
+ 
+/* HOVER EFFECT (required) - highlights the whole row */
+.page-about .team-table tbody tr:hover {
+    background-color: #E4EFE9;
+}
+ 
+.page-about .team-table tbody tr:hover th {
+    background-color: #D4E5DB;
+}
+ 
+@media screen and (max-width: 700px) {
+    .page-about .team-table {
+        font-size: 0.9rem;
+    }
+ 
+    .page-about .team-table th,
+    .page-about .team-table td {
+        padding: 0.5rem;
+    }
+ 
+    .page-about .contributions dd {
+        padding-left: 0.75rem;
+    }
+} 
+/* ----------------------------------------------------------
+   8. MANAGE PAGE - manage.php                (owner: Lan Nguyen)
+     ---------------------------------------------------------- */
+ 
+/* Each group of options sits in a light panel */
+.page-manage .manage-panel {
+    background-color: #F7FAF8;
+    border: 1px solid #C6D6CE;
+    border-radius: 6px;
+    padding: 1rem 1.25rem 1.25rem;
+    margin-top: 1.5rem;
+}
+ 
+.page-manage .manage-panel h2 {
+    margin-top: 0;
+}
+ 
+/* The three query forms line up side by side and wrap on smaller screens */
+.page-manage .query-forms {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1rem;
+}
+ 
+.page-manage fieldset {
+    border: 1px solid #C6D6CE;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 0.75rem 1rem 1rem;
+    margin: 0;
+    height: 100%;
+}
+ 
+.page-manage legend {
+    font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+    font-weight: bold;
+    color: #1F3A2E;
+    padding: 0 0.3rem;
+}
+ 
+.page-manage fieldset label {
+    display: block;
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+}
+ 
+.page-manage fieldset input[type="text"],
+.page-manage fieldset select {
+    width: 100%;
+    padding: 0.4rem;
+    border: 1px solid #C6D6CE;
+    border-radius: 4px;
+    font: inherit;
+}
+ 
+.page-manage button {
+    margin-top: 0.9rem;
+    padding: 0.45rem 1.1rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #35604A;
+    color: #FFFFFF;
+    font: inherit;
+    cursor: pointer;
+}
+ 
+.page-manage button:hover,
+.page-manage button:focus {
+    background-color: #1F3A2E;
+}
+ 
+/* Delete is destructive, so it gets a warning colour */
+.page-manage .danger-panel {
+    border-color: #D9A3A3;
+    background-color: #FDF5F5;
+}
+ 
+.page-manage .danger-panel fieldset {
+    max-width: 30rem;
+}
+ 
+.page-manage .danger-button {
+    background-color: #A33A3A;
+}
+ 
+.page-manage .danger-button:hover,
+.page-manage .danger-button:focus {
+    background-color: #7A2626;
+}
+ 
+.page-manage .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin: 0.8rem 0 0;
+}
+ 
+.page-manage .checkbox-row label {
+    margin-top: 0;
+}
+ 
+/* Feedback messages */
+.page-manage .success-box,
+.page-manage .error-box {
+    border-left: 5px solid;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    margin-top: 1.25rem;
+}
+ 
+.page-manage .success-box {
+    border-color: #35604A;
+    background-color: #EDF2EF;
+}
+ 
+.page-manage .error-box {
+    border-color: #A33A3A;
+    background-color: #FDF5F5;
+}
+ 
+.page-manage .success-box p,
+.page-manage .error-box p {
+    margin: 0.3rem 0;
+}
+ 
+.page-manage .notice {
+    color: #55625B;
+    font-style: italic;
+}
+ 
+/* Wide results table scrolls sideways instead of breaking the layout */
+.page-manage .table-scroll {
+    overflow-x: auto;
+    position: relative;   /* keeps the hidden status labels inside the scroll area */
+}
+ 
+.page-manage .eoi-table {
+    font-size: 0.92rem;
+    min-width: 60rem;
+}
+ 
+.page-manage .eoi-table tbody tr:nth-child(even) {
+    background-color: #F7FAF8;
+}
+ 
+.page-manage .eoi-table tbody tr:hover {
+    background-color: #E4EFE9;
+}
+ 
+/* Status dropdown and button stay on one line inside the table cell */
+.page-manage .status-form {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+ 
+.page-manage .status-form select {
+    padding: 0.25rem;
+    border: 1px solid #C6D6CE;
+    border-radius: 4px;
+    font: inherit;
+}
+ 
+.page-manage .status-form button {
+    margin-top: 0;
+    padding: 0.25rem 0.7rem;
+}
+ 
+@media screen and (max-width: 700px) {
+    .page-manage .manage-panel {
+        padding: 0.75rem;
+    }
+}
