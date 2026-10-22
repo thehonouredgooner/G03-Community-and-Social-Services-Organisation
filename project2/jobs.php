@@ -1,4 +1,49 @@
-<?php $currentPage = 'jobs'; ?>
+<?php
+$currentPage = 'jobs';
+require_once __DIR__ . '/settings.php';
+
+function e($value) {
+    return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
+}
+
+function render_items($text) {
+    $html = '';
+    foreach (preg_split('/\R/', trim((string)$text), -1, PREG_SPLIT_NO_EMPTY) as $item) {
+        $html .= '<li>' . e(trim($item)) . "</li>\n";
+    }
+    return $html;
+}
+
+$search = (isset($_GET['q']) && is_string($_GET['q'])) ? mb_substr(trim($_GET['q']), 0, 100) : '';
+$jobs = [];
+$db_error = false;
+
+try {
+    $conn = mysqli_connect($host, $user, $password, $database);
+    mysqli_set_charset($conn, 'utf8mb4');
+
+    if ($search === '') {
+        $stmt = mysqli_prepare($conn, "SELECT * FROM jobs ORDER BY title");
+    } else {
+        $like = '%' . addcslashes($search, '%_\\') . '%';
+        $stmt = mysqli_prepare($conn,
+            "SELECT * FROM jobs
+             WHERE title LIKE ? OR job_reference LIKE ? OR description LIKE ?
+                OR reports_to LIKE ? OR responsibilities LIKE ?
+                OR essential_qualifications LIKE ? OR preferable_qualifications LIKE ?
+             ORDER BY title");
+        mysqli_stmt_bind_param($stmt, "sssssss", $like, $like, $like, $like, $like, $like, $like);
+    }
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $jobs[] = $row;
+    }
+    mysqli_stmt_close($stmt);
+} catch (Throwable $ex) {
+    $db_error = true;
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
