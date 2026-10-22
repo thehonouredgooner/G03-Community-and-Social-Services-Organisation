@@ -53,13 +53,15 @@
 
                     <!-- {6} means exactly six letters or numbers, no more and no less. -->
                     <div class="form-row">
-                        <label for="JobRef">Job Reference Number:<span class="req" aria-hidden="true">*</span></label>
-                        <input type="text" id="JobRef" name="JobRef" 
-                            required
-                            pattern="[A-Za-z0-9]{6}" 
-                            maxlength="6"
-                            title="Six letters or numbers, for example ABC123">
-                        <small class="hint">Six letters or numbers, e.g. ABC123</small>
+                        <label for="JobRef">Position:<span class="req" aria-hidden="true">*</span></label>
+                        <!-- TEMPORARY: hard-coded options for testing. Will be loaded from the
+                            jobs table once it's in the database. -->
+                        <select id="JobRef" name="JobRef" required>
+                            <option value="">Please select a position</option>
+                            <option value="CS4A7B">Community Support Worker (CS4A7B)</option>
+                            <option value="VO82C5">Volunteer Coordinator (VO82C5)</option>
+                            <option value="CP6D9E">Community Programs Officer (CP6D9E)</option>
+                        </select>
                     </div>
 
                     <div class="form-row"> 
