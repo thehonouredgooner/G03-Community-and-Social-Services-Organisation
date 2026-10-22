@@ -100,216 +100,47 @@ try {
         <section aria-labelledby="available-jobs">
             <h2 id="available-jobs">Available Positions</h2>
 
-            <article>
-                <header>
-                    <h3>Community Support Worker</h3>
+           <?php if ($db_error): ?>
+                <p>Sorry, job listings are temporarily unavailable. Please try again later.</p>
+            <?php elseif (!$jobs): ?>
+                <p>No positions found<?php echo $search !== '' ? ' for &quot;' . e($search) . '&quot;' : ''; ?>.
+                   <?php if ($search !== ''): ?><a href="jobs.php">View all positions</a><?php endif; ?></p>
+            <?php else: ?>
+                <?php foreach ($jobs as $job): ?>
+                <article>
+                    <header>
+                        <h3><?php echo e($job['title']); ?></h3>
+                        <p><strong>Reference:</strong> <?php echo e($job['job_reference']); ?></p>
+                        <p><strong>Salary:</strong> <?php echo e($job['salary_range']); ?></p>
+                        <p><strong>Reports to:</strong> <?php echo e($job['reports_to']); ?></p>
+                    </header>
 
-                    <p>
-                        <strong>Reference:</strong> CS4A7B
-                    </p>
+                    <section>
+                        <h4>Position Description</h4>
+                        <p><?php echo e($job['description']); ?></p>
+                    </section>
 
-                    <p>
-                        <strong>Salary:</strong> $60,000 – $70,000 per year
-                    </p>
+                    <section>
+                        <h4>Key Responsibilities</h4>
+                        <ol><?php echo render_items($job['responsibilities']); ?></ol>
+                    </section>
 
-                    <p>
-                        <strong>Reports to:</strong> Community Services Manager
-                    </p>
-                </header>
+                    <section>
+                        <h4>Essential Requirements</h4>
+                        <ul><?php echo render_items($job['essential_qualifications']); ?></ul>
+                    </section>
 
-                <section>
-                    <h4>Position Description</h4>
+                    <?php if (trim((string)$job['preferable_qualifications']) !== ''): ?>
+                    <section>
+                        <h4>Preferable Requirements</h4>
+                        <ul><?php echo render_items($job['preferable_qualifications']); ?></ul>
+                    </section>
+                    <?php endif; ?>
 
-                    <p>
-                        Community Connect is seeking a compassionate and
-                        reliable Community Support Worker to assist individuals
-                        and families accessing community services. The role
-                        involves providing practical support, connecting people
-                        with appropriate services and helping clients participate
-                        in community activities.
-                    </p>
-                </section>
-
-                <section>
-                    <h4>Key Responsibilities</h4>
-
-                    <ol>
-                        <li>Provide practical and emotional support to community members.</li>
-                        <li>Assist clients in accessing appropriate support services.</li>
-                        <li>Maintain accurate and confidential client records.</li>
-                        <li>Support community activities, workshops and events.</li>
-                        <li>Work with other staff and community organisations to meet client needs.</li>
-                    </ol>
-                </section>
-
-                <section>
-                    <h4>Essential Requirements</h4>
-
-                    <ul>
-                        <li>Strong communication and interpersonal skills.</li>
-                        <li>Ability to work respectfully with people from diverse backgrounds.</li>
-                        <li>Good organisation and time-management skills.</li>
-                        <li>Ability to maintain confidentiality and professional boundaries.</li>
-                        <li>Current Working with Children Check or willingness to obtain one.</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h4>Preferable Requirements</h4>
-
-                    <ul>
-                        <li>Certificate or diploma in community services or a related field.</li>
-                        <li>Previous experience in a community services environment.</li>
-                        <li>First Aid certification.</li>
-                        <li>Experience working with vulnerable individuals or families.</li>
-                    </ul>
-                </section>
-
-                <p>
-                    <a href="apply.php">Apply for this position</a>
-                </p>
-            </article>
-
-
-            <article>
-                <header>
-                    <h3>Volunteer Coordinator</h3>
-
-                    <p>
-                        <strong>Reference:</strong> VO82C5
-                    </p>
-
-                    <p>
-                        <strong>Salary:</strong> $65,000 – $75,000 per year
-                    </p>
-
-                    <p>
-                        <strong>Reports to:</strong> Community Programs Manager
-                    </p>
-                </header>
-
-                <section>
-                    <h4>Position Description</h4>
-
-                    <p>
-                        We are looking for an organised and enthusiastic
-                        Volunteer Coordinator to recruit, support and manage
-                        volunteers across our community programs. The successful
-                        candidate will help volunteers find suitable opportunities
-                        and ensure they have a positive and rewarding experience.
-                    </p>
-                </section>
-
-                <section>
-                    <h4>Key Responsibilities</h4>
-
-                    <ol>
-                        <li>Recruit and register new volunteers.</li>
-                        <li>Match volunteers with suitable community programs and events.</li>
-                        <li>Provide volunteer induction and ongoing support.</li>
-                        <li>Maintain accurate volunteer records and schedules.</li>
-                        <li>Organise volunteer appreciation and engagement activities.</li>
-                    </ol>
-                </section>
-
-                <section>
-                    <h4>Essential Requirements</h4>
-
-                    <ul>
-                        <li>Excellent communication and people skills.</li>
-                        <li>Strong organisational and administrative abilities.</li>
-                        <li>Ability to work with people from a wide range of backgrounds.</li>
-                        <li>Ability to manage multiple tasks and deadlines.</li>
-                        <li>Confidence using common office and communication software.</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h4>Preferable Requirements</h4>
-
-                    <ul>
-                        <li>Previous experience coordinating volunteers.</li>
-                        <li>Experience working in a not-for-profit organisation.</li>
-                        <li>Experience organising community events.</li>
-                        <li>Knowledge of volunteer management practices.</li>
-                    </ul>
-                </section>
-
-                <p>
-                    <a href="apply.php">Apply for this position</a>
-                </p>
-            </article>
-
-
-            <article>
-                <header>
-                    <h3>Community Programs Officer</h3>
-
-                    <p>
-                        <strong>Reference:</strong> CP6D9E
-                    </p>
-
-                    <p>
-                        <strong>Salary:</strong> $68,000 – $80,000 per year
-                    </p>
-
-                    <p>
-                        <strong>Reports to:</strong> Programs and Services Manager
-                    </p>
-                </header>
-
-                <section>
-                    <h4>Position Description</h4>
-
-                    <p>
-                        Community Connect is seeking a Community Programs Officer
-                        to help plan, coordinate and promote programs that respond
-                        to local community needs. This role will work with staff,
-                        volunteers and community partners to deliver accessible
-                        activities and events.
-                    </p>
-                </section>
-
-                <section>
-                    <h4>Key Responsibilities</h4>
-
-                    <ol>
-                        <li>Assist with planning and delivering community programs.</li>
-                        <li>Coordinate community events, workshops and information sessions.</li>
-                        <li>Work with volunteers and community partners.</li>
-                        <li>Promote programs and events to community members.</li>
-                        <li>Collect feedback and assist with evaluating program outcomes.</li>
-                    </ol>
-                </section>
-
-                <section>
-                    <h4>Essential Requirements</h4>
-
-                    <ul>
-                        <li>Strong written and verbal communication skills.</li>
-                        <li>Excellent planning and organisational skills.</li>
-                        <li>Ability to build positive relationships with community members.</li>
-                        <li>Ability to work independently and as part of a team.</li>
-                        <li>Commitment to inclusion, accessibility and community wellbeing.</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h4>Preferable Requirements</h4>
-
-                    <ul>
-                        <li>Qualification in community development, social services or a related field.</li>
-                        <li>Previous experience coordinating community programs.</li>
-                        <li>Experience organising public events or workshops.</li>
-                        <li>Knowledge of local community services and support networks.</li>
-                    </ul>
-                </section>
-
-                <p>
-                    <a href="apply.php">Apply for this position</a>
-                </p>
-            </article>
-
+                    <p><a href="apply.php">Apply for this position</a></p>
+                </article>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </section>
 
 
