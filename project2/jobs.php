@@ -85,6 +85,15 @@ try {
             </p>
 
             <p class="job-note">Applications are currently open.</p>
+            
+<form method="get" action="jobs.php" role="search" class="job-search">
+    <label for="q">Search positions</label>
+    <input type="search" id="q" name="q" maxlength="100"
+           value="<?php echo e($search); ?>" placeholder="Title, reference or keyword">
+    <button type="submit">Search</button>
+    <?php if ($search !== ''): ?><a href="jobs.php">Clear search</a><?php endif; ?>
+</form>
+            
         </section>
 
 
