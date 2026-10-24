@@ -748,6 +748,33 @@ textarea:focus {
     color: #55625B;
     font-style: italic;
 }
+
+/* Logged-in message with the logout link on the right; wraps on small screens */
+.page-manage .account-bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem 1.5rem;
+}
+
+.page-manage .account-bar p {
+    margin: 0;
+}
+
+.page-manage .logout-link {
+    padding: 0.4rem 1rem;
+    border: 1px solid #35604A;
+    border-radius: 4px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.page-manage .logout-link:hover,
+.page-manage .logout-link:focus {
+    background-color: #35604A;
+    color: #FFFFFF;
+}
  
 /* Wide results table scrolls sideways instead of breaking the layout */
 .page-manage .table-scroll {
