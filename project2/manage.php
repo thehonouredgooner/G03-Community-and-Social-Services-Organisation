@@ -361,10 +361,14 @@ function sort_controls($id, $sortOptions, $sort, $order) {
 
   <main id="main-content">
     <h1>Manage Expressions of Interest</h1>
-    <p>
-      Logged in as <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>.
-      Use the options below to search, sort and update applications.
-    </p>
+    <div class="account-bar">
+      <p>
+        Logged in as <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>.
+        Use the options below to search, sort and update applications.
+      </p>
+      
+      <a class="logout-link" href="logout.php">Log out</a>
+    </div>
 
     <?php if ($flash !== null) { ?>
       <div class="<?php echo $flash['type'] === 'success' ? 'success-box' : 'error-box'; ?>" role="status">
