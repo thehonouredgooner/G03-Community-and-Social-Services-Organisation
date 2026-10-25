@@ -16,9 +16,9 @@ $lock_minutes = 5;   // how long the lock lasts
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = (isset($_POST['username']) && is_string($_POST['username'])) ? trim($_POST['username']) : '';
-    $password = (isset($_POST['password']) && is_string($_POST['password'])) ? $_POST['password'] : '';
+    $login_password = (isset($_POST['password']) && is_string($_POST['password'])) ? $_POST['password'] : '';
 
-    if ($username === '' || $password === '' || strlen($username) > 50) {
+    if ($username === '' || $login_password === '' || strlen($username) > 50) {
         $error = 'Invalid username or password.';
     } else {
         try {
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Verify against a dummy hash when the username doesn't exist, so timing doesn't reveal valid usernames
             $dummy = '$2y$10$1a0u6FtYWpxiw8Y05lK4P.AM74zL77H2KghGaM2/XQFSmA.M8D/g2';
-            $valid = password_verify($password, $account ? $account['password_hash'] : $dummy);
+            $valid = password_verify($login_password, $account ? $account['password_hash'] : $dummy);
 
             if ($account && $account['is_locked']) {
                 $error = 'Too many failed attempts. Please try again in a few minutes.';
