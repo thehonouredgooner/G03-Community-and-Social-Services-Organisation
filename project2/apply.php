@@ -1,4 +1,11 @@
-<?php $currentPage = 'apply'; ?>
+<?php
+$currentPage = 'apply';
+
+// Load the list of positions from the jobs table for the dropdown.
+require_once __DIR__ . '/settings.php';
+$conn = mysqli_connect($host, $user, $password, $database);
+$jobs_result = mysqli_query($conn, "SELECT job_reference, title FROM jobs ORDER BY title");
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -54,13 +61,15 @@
                     <!-- {6} means exactly six letters or numbers, no more and no less. -->
                     <div class="form-row">
                         <label for="JobRef">Position:<span class="req" aria-hidden="true">*</span></label>
-                        <!-- TEMPORARY: hard-coded options for testing. Will be loaded from the
-                            jobs table once it's in the database. -->
+                        <!-- Options are loaded from the jobs table, so this stays in sync with the
+                            jobs page automatically. -->
                         <select id="JobRef" name="JobRef" required>
                             <option value="">Please select a position</option>
-                            <option value="CS4A7B">Community Support Worker (CS4A7B)</option>
-                            <option value="VO82C5">Volunteer Coordinator (VO82C5)</option>
-                            <option value="CP6D9E">Community Programs Officer (CP6D9E)</option>
+                            <?php while ($job = mysqli_fetch_assoc($jobs_result)) { ?>
+                                <option value="<?php echo htmlspecialchars($job['job_reference']); ?>">
+                                    <?php echo htmlspecialchars($job['title']) . " (" . htmlspecialchars($job['job_reference']) . ")"; ?>
+                                </option>
+                            <?php } ?>
                         </select>
                     </div>
 
@@ -249,8 +258,10 @@
         </main>
 
 
+        <?php mysqli_close($conn); ?>
         <!-- Shared footer -->
         <?php require __DIR__ . '/footer.inc'; ?>
+        
 
     </body>
     </html>
